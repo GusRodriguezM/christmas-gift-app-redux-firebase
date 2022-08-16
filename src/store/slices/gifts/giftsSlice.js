@@ -28,7 +28,9 @@ export const giftsSlice = createSlice({
     ]
   },
   reducers: {
-    addGift: (state) => { },
+    addGift: (state, action) => {
+      state.gifts.push( action.payload );
+    },
   },
 });
 
