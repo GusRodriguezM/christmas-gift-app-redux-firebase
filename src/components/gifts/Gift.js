@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { deleteGift, setActiveGift } from '../../slices/gifts'; 
-import { openModal } from '../../slices/modal/modalSlice';
+import { deleteGift, setActiveGift } from '../../store/slices/gifts';
+import { openModal } from '../../store/slices/modal';
 
 export const Gift = ({ id, name, quantity, image, person, price }) => {
 

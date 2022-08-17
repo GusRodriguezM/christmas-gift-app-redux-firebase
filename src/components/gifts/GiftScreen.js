@@ -6,8 +6,8 @@ import { GiftsList } from './GiftsList';
 import { EmptyList } from './EmptyList';
 import { Modal } from '../modal/Modal';
 
-import { cleanList } from '../../slices/gifts';
-import { openModal } from '../../slices/modal/modalSlice';
+import { cleanList } from '../../store/slices/gifts';
+import { openModal } from '../../store/slices/modal';
 
 import './styles.css';
 

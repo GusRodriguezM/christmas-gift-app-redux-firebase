@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addGift, deleteActiveGift, editGift } from '../../slices/gifts';
-import { closeModal } from '../../slices/modal/modalSlice';
+import { addGift, deleteActiveGift, editGift } from '../../store/slices/gifts';
+import { closeModal } from '../../store/slices/modal';
 
 const initValues = {
     name: '',

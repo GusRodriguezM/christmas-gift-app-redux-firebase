@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteActiveGift } from '../../slices/gifts';
-import { closeModal } from '../../slices/modal/modalSlice';
+import { deleteActiveGift } from '../../store/slices/gifts';
+import { closeModal } from '../../store/slices/modal/modalSlice';
 
 import './modal.css'
 
