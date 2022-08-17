@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addGift } from '../../slices/gifts';
+import { addGift, deleteActiveGift, editGift } from '../../slices/gifts';
 import { closeModal } from '../../slices/modal/modalSlice';
 
 const initValues = {
@@ -13,12 +13,16 @@ const initValues = {
 
 export const GiftForm = () => {
 
-    const { gifts } = useSelector( state => state.gifts );
+    const { gifts, activeGift } = useSelector( state => state.gifts );
     const dispatch = useDispatch();
 
     const [formValues, setFormValues] = useState(initValues);
 
     const { name, quantity, image, person, price } = formValues;
+
+    useEffect(() => {
+        activeGift ? setFormValues(activeGift) : setFormValues(initValues);
+    }, [activeGift]);
 
     const handleInputChange = ({ target }) => {
         setFormValues({
@@ -30,26 +34,41 @@ export const GiftForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        let newGift = {
-            id: (+new Date()).toString(),
-            name: name,
-            quantity: quantity, 
-            image: image,
-            person: person, 
-            price: price
-        }
-
-        const duplicate = gifts.some(gift => gift.name.toLowerCase() === newGift.name.toLowerCase());
-
-        if(duplicate){
-            console.log('Please do not repeat the gift. Show some more love');
+        if(!activeGift){
+            let newGift = {
+                id: (+new Date()).toString(),
+                name: name,
+                quantity: quantity, 
+                image: image,
+                person: person, 
+                price: price
+            }
+    
+            const duplicate = gifts.some(gift => gift.name.toLowerCase() === newGift.name.toLowerCase());
+    
+            if(duplicate){
+                console.log('Please do not repeat the gift. Show some more love');
+            }else{
+                dispatch( addGift( newGift ) );
+            }
+            
+            setFormValues(initValues);
+            dispatch( closeModal() );
         }else{
-            // console.log(formValues)
-            dispatch( addGift( newGift ) );
+            const giftToEdit = {
+                id: activeGift.id,
+                name: name,
+                quantity: quantity, 
+                image: image,
+                person: person, 
+                price: price
+            }
+            
+            dispatch( editGift( giftToEdit ) );
+            dispatch( deleteActiveGift() );
+            dispatch( closeModal() );
         }
-        
-        setFormValues(initValues);
-        dispatch( closeModal() );
+
     }
 
     const isFormValid = () => {

@@ -1,13 +1,29 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { deleteGift } from '../../slices/gifts'; 
+import { deleteGift, setActiveGift } from '../../slices/gifts'; 
+import { openModal } from '../../slices/modal/modalSlice';
 
 export const Gift = ({ id, name, quantity, image, person, price }) => {
 
     const dispatch = useDispatch();
 
-    const handleDelete = () => {
+    const handleEditGift = () => {
+
+        const giftToEdit = {
+            id: id,
+            name: name,
+            quantity: quantity,
+            image: image,
+            person: person,
+            price: price
+        }
+
+        dispatch( setActiveGift( giftToEdit ) );
+        dispatch( openModal() );
+    }
+
+    const handleDeleteGift = () => {
         dispatch( deleteGift(id) );
     }
 
@@ -22,7 +38,13 @@ export const Gift = ({ id, name, quantity, image, person, price }) => {
             </div>
 
             <button
-                onClick={handleDelete}
+                onClick={handleEditGift}
+            >
+                Edit
+            </button>
+
+            <button
+                onClick={handleDeleteGift}
             >
                 Delete
             </button>

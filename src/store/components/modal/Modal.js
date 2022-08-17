@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { deleteActiveGift } from '../../slices/gifts';
 import { closeModal } from '../../slices/modal/modalSlice';
 
 import './modal.css'
@@ -11,6 +12,7 @@ export const Modal = ({title, children}) => {
 
     const handleCloseModal = () => {
         dispatch( closeModal() );
+        dispatch( deleteActiveGift() );
     }
 
     if(!open){
