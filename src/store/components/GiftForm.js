@@ -27,8 +27,17 @@ export const GiftForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        let newGift = {
+            id: (+new Date()).toString(),
+            name: name,
+            quantity: quantity, 
+            image: image,
+            person: person, 
+            price: price
+        }
+
         console.log(formValues)
-        dispatch( addGift( formValues ) );
+        dispatch( addGift( newGift ) );
     }
 
     return (
