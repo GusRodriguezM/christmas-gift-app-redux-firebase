@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addGift } from '../slices/gifts';
+import { addGift } from '../../slices/gifts';
+import { closeModal } from '../../slices/modal/modalSlice';
 
 const initValues = {
     name: '',
@@ -47,6 +48,8 @@ export const GiftForm = () => {
             dispatch( addGift( newGift ) );
         }
         
+        setFormValues(initValues);
+        dispatch( closeModal() );
     }
 
     const isFormValid = () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { deleteGift } from '../slices/gifts';
+import { deleteGift } from '../../slices/gifts'; 
 
 export const Gift = ({ id, name, quantity, image, person, price }) => {
 

@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GiftForm } from './GiftForm';
 import { GiftsList } from './GiftsList';
 import { EmptyList } from './EmptyList';
+import { Modal } from '../modal/Modal';
 
-import { cleanList } from '../slices/gifts';
+import { cleanList } from '../../slices/gifts';
+import { openModal } from '../../slices/modal/modalSlice';
 
 import './styles.css';
 
@@ -18,12 +20,22 @@ export const GiftScreen = () => {
         dispatch( cleanList() );
     }
 
-    // console.log(gifts);
+    const handleOpenModal = () => {
+        dispatch( openModal() );
+    }
 
     return (
         <div className='gifts'>
-            <GiftForm />
 
+            <button
+                onClick={handleOpenModal}
+            >
+                Add Gift
+            </button>
+
+            <Modal title={'Form'}>
+                <GiftForm />
+            </Modal>
             
             {
                 gifts.length === 0 

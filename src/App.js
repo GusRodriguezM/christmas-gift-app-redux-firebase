@@ -1,4 +1,4 @@
-import { GiftScreen } from './store/components/GiftScreen';
+import { GiftScreen } from './store/components/gifts/GiftScreen';
 
 import './App.css';
 
