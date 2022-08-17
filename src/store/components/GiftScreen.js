@@ -18,7 +18,7 @@ export const GiftScreen = () => {
         dispatch( cleanList() );
     }
 
-    console.log(gifts);
+    // console.log(gifts);
 
     return (
         <div className='gifts'>

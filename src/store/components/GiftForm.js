@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addGift } from '../slices/gifts';
 
 const initValues = {
@@ -12,8 +12,10 @@ const initValues = {
 
 export const GiftForm = () => {
 
-    const [formValues, setFormValues] = useState(initValues);
+    const { gifts } = useSelector( state => state.gifts );
     const dispatch = useDispatch();
+
+    const [formValues, setFormValues] = useState(initValues);
 
     const { name, quantity, image, person, price } = formValues;
 
@@ -36,8 +38,22 @@ export const GiftForm = () => {
             price: price
         }
 
-        console.log(formValues)
-        dispatch( addGift( newGift ) );
+        const duplicate = gifts.some(gift => gift.name.toLowerCase() === newGift.name.toLowerCase());
+
+        if(duplicate){
+            console.log('Please do not repeat the gift. Show some more love');
+        }else{
+            // console.log(formValues)
+            dispatch( addGift( newGift ) );
+        }
+        
+    }
+
+    const isFormValid = () => {
+        if(name.length === 0 && quantity.length === 0 && image.length === 0 && person.length === 0 && price.length === 0)
+            return true;
+        else
+            return false;
     }
 
     return (
@@ -102,6 +118,7 @@ export const GiftForm = () => {
 
             <button
                 type='submit'
+                disabled={isFormValid()}
             >
                 Add a gift
             </button>
