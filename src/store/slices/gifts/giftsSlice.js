@@ -13,7 +13,10 @@ export const giftsSlice = createSlice({
       const idx = state.gifts.findIndex(st => st.id === action.payload);
       state.gifts.splice(idx, 1);
     },
+    cleanList: (state, action) => {
+      state.gifts = [];
+    },
   },
 });
 
-export const { addGift, deleteGift } = giftsSlice.actions;
+export const { addGift, deleteGift, cleanList } = giftsSlice.actions;
