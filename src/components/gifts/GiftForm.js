@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addGift, deleteActiveGift, editGift } from '../../store/slices/gifts';
 import { closeModal } from '../../store/slices/modal';
+import { defaultGifts } from '../../helpers/defaultGifts';
 
 const initValues = {
     name: '',
@@ -71,6 +72,20 @@ export const GiftForm = () => {
 
     }
 
+    const handleGetRandomGift = (e) => {
+        e.preventDefault();
+
+        const rand = Math.floor(Math.random() * defaultGifts.length);
+        const randomGift = defaultGifts[rand];
+        setFormValues({
+            ...formValues, 
+            name: randomGift.name,
+            image: randomGift.image,
+            quantity: randomGift.quantity,
+            price: randomGift.price
+        })
+    }
+
     const isFormValid = () => {
         if(name.length === 0 && quantity.length === 0 && image.length === 0 && person.length === 0 && price.length === 0)
             return true;
@@ -90,7 +105,9 @@ export const GiftForm = () => {
                 onChange={handleInputChange}
             />
 
-            <button>
+            <button
+                onClick={handleGetRandomGift}
+            >
                 Surprise
             </button>
 
@@ -131,9 +148,9 @@ export const GiftForm = () => {
                 value={price}
                 autoComplete='off'
                 min={1}
-                max={9999}
+                max={999999}
                 minLength={1}
-                maxLength={3}
+                maxLength={7}
                 required
                 onChange={handleInputChange}
             />
