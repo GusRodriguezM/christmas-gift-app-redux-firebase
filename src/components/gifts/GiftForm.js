@@ -42,7 +42,8 @@ export const GiftForm = () => {
                 quantity: quantity, 
                 image: image,
                 person: person, 
-                price: price
+                price: price,
+                total: quantity * price
             }
     
             const duplicate = gifts.some(gift => gift.name.toLowerCase() === newGift.name.toLowerCase());
