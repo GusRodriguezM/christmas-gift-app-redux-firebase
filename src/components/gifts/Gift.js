@@ -2,24 +2,30 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import { deleteGift, setActiveGift } from '../../store/slices/gifts';
-import { openModal } from '../../store/slices/modal';
+import { openModal, setOption } from '../../store/slices/modal';
 
 export const Gift = ({ id, name, quantity, image, person, price }) => {
 
     const dispatch = useDispatch();
 
+    const gift = {
+        id: id,
+        name: name,
+        quantity: quantity,
+        image: image,
+        person: person,
+        price: price
+    }
+
     const handleEditGift = () => {
+        dispatch( setActiveGift( gift ) );
+        dispatch( setOption('edit') );
+        dispatch( openModal() );
+    }
 
-        const giftToEdit = {
-            id: id,
-            name: name,
-            quantity: quantity,
-            image: image,
-            person: person,
-            price: price
-        }
-
-        dispatch( setActiveGift( giftToEdit ) );
+    const handleDuplicateGift = () => {
+        dispatch( setActiveGift( gift ) );
+        dispatch( setOption('duplicate') );
         dispatch( openModal() );
     }
 
@@ -41,6 +47,12 @@ export const Gift = ({ id, name, quantity, image, person, price }) => {
                 onClick={handleEditGift}
             >
                 Edit
+            </button>
+
+            <button
+                onClick={handleDuplicateGift}
+            >
+                Duplicate
             </button>
 
             <button

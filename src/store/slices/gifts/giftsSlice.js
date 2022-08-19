@@ -16,6 +16,20 @@ export const giftsSlice = createSlice({
         state.gifts.splice(idx, 1, action.payload);
       }
     },
+    duplicateGift: {
+      reducer: (state, action) => {
+        const { id, giftToDuplicate } = action.payload;
+        const found = state.gifts.findIndex(gift => gift.id === id);
+        state.gifts.splice(found + 1, 0, giftToDuplicate);
+      },
+      prepare: (id, giftToDuplicate) => {
+        return {
+          payload: {
+            id, giftToDuplicate
+          }
+        }
+      }
+    },
     deleteGift: (state, action) => {
       const idx = state.gifts.findIndex(st => st.id === action.payload);
       if(idx >= 0){
@@ -34,4 +48,4 @@ export const giftsSlice = createSlice({
   },
 });
 
-export const { addGift, editGift, deleteGift, cleanList, setActiveGift, deleteActiveGift } = giftsSlice.actions;
+export const { addGift, editGift, duplicateGift, deleteGift, cleanList, setActiveGift, deleteActiveGift } = giftsSlice.actions;

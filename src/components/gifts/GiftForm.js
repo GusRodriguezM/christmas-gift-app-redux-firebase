@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addGift, deleteActiveGift, editGift } from '../../store/slices/gifts';
+import { addGift, deleteActiveGift, duplicateGift, editGift } from '../../store/slices/gifts';
 import { closeModal } from '../../store/slices/modal';
 import { defaultGifts } from '../../helpers/defaultGifts';
 
@@ -15,6 +15,7 @@ const initValues = {
 export const GiftForm = () => {
 
     const { gifts, activeGift } = useSelector( state => state.gifts );
+    const { option } = useSelector( state => state.modal );
     const dispatch = useDispatch();
 
     const [formValues, setFormValues] = useState(initValues);
@@ -57,18 +58,36 @@ export const GiftForm = () => {
             setFormValues(initValues);
             dispatch( closeModal() );
         }else{
-            const giftToEdit = {
-                id: activeGift.id,
-                name: name,
-                quantity: quantity, 
-                image: image,
-                person: person, 
-                price: price
+            if(option === 'edit'){
+                const giftToEdit = {
+                    id: activeGift.id,
+                    name: name,
+                    quantity: quantity, 
+                    image: image,
+                    person: person, 
+                    price: price,
+                    total: quantity * price
+                }
+                
+                dispatch( editGift( giftToEdit ) );
+                dispatch( deleteActiveGift() );
+                dispatch( closeModal() );
+            }else{
+                const giftToDuplicate = {
+                    id: (+new Date()).toString(),
+                    name: name,
+                    quantity: quantity, 
+                    image: image,
+                    person: person, 
+                    price: price,
+                    total: quantity * price
+                }
+
+
+                dispatch( duplicateGift( activeGift.id, giftToDuplicate ) );
+                dispatch( deleteActiveGift() );
+                dispatch( closeModal() );
             }
-            
-            dispatch( editGift( giftToEdit ) );
-            dispatch( deleteActiveGift() );
-            dispatch( closeModal() );
         }
 
     }
