@@ -4,7 +4,8 @@ export const modalSlice = createSlice({
   name: 'modal',
   initialState: {
     open: false,
-    option: ''
+    option: '',
+    type: ''
   },
   reducers: {
     openModal: (state) => {
@@ -15,8 +16,11 @@ export const modalSlice = createSlice({
     },
     setOption: (state, action) => {
       state.option = action.payload;
+    },
+    setType: (state, action) => {
+      state.type = action.payload;
     }
   },
 });
 
-export const { openModal, closeModal, setOption } = modalSlice.actions;
+export const { openModal, closeModal, setOption, setType } = modalSlice.actions;

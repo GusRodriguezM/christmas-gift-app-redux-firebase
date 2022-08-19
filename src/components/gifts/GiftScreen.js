@@ -7,13 +7,15 @@ import { EmptyList } from './EmptyList';
 import { Modal } from '../modal/Modal';
 
 import { cleanList } from '../../store/slices/gifts';
-import { openModal } from '../../store/slices/modal';
+import { openModal, setType } from '../../store/slices/modal';
 
 import './styles.css';
+import { Visualize } from './Visualize';
 
 export const GiftScreen = () => {
 
     const { gifts } = useSelector( state => state.gifts );
+    const { type } = useSelector(state => state.modal);
     const dispatch = useDispatch();
 
     const [total, setTotal] = useState(0);
@@ -25,6 +27,12 @@ export const GiftScreen = () => {
     }
 
     const handleOpenModal = () => {
+        dispatch( setType('form') );
+        dispatch( openModal() );
+    }
+
+    const handleVisualizeModal = () => {
+        dispatch( setType('visualize') );
         dispatch( openModal() );
     }
 
@@ -49,8 +57,14 @@ export const GiftScreen = () => {
                 Add Gift
             </button>
 
-            <Modal title={'Form'}>
-                <GiftForm />
+            <Modal title={type === 'form' ? 'Form' : 'Visualize'}>
+
+                {
+                    type === 'form'
+                        ?   (<GiftForm />)
+                        :   (<Visualize />)
+                }
+                
             </Modal>
             
             {
@@ -61,7 +75,13 @@ export const GiftScreen = () => {
 
             <span>
                 Total: {total}
-            </span>         
+            </span>
+
+            <button
+                onClick={handleVisualizeModal}
+            >
+                Visualize    
+            </button>       
 
             <button
                 onClick={handleCleanList}
