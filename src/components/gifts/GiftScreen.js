@@ -1,22 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useReactToPrint } from 'react-to-print';
 
 import { GiftForm } from './GiftForm';
 import { GiftsList } from './GiftsList';
 import { EmptyList } from './EmptyList';
 import { Modal } from '../modal/Modal';
+import { Visualize } from './Visualize';
+import { GiftListToPrint } from './GiftListToPrint';
 
 import { cleanList } from '../../store/slices/gifts';
 import { openModal, setType } from '../../store/slices/modal';
 
 import './styles.css';
-import { Visualize } from './Visualize';
 
 export const GiftScreen = () => {
 
     const { gifts } = useSelector( state => state.gifts );
     const { type } = useSelector(state => state.modal);
     const dispatch = useDispatch();
+    const componentRef = useRef();
 
     const [total, setTotal] = useState(0);
 
@@ -35,6 +38,11 @@ export const GiftScreen = () => {
         dispatch( setType('visualize') );
         dispatch( openModal() );
     }
+
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+        documentTitle: 'Gifts List'
+    });
 
     useEffect(() => {
         let auxTotal = [];
@@ -66,6 +74,11 @@ export const GiftScreen = () => {
                 }
                 
             </Modal>
+
+            <div style={{display: 'none'}}>
+                <GiftListToPrint ref={componentRef} total={total} /> 
+            </div>
+
             
             {
                 gifts.length === 0 
@@ -81,7 +94,13 @@ export const GiftScreen = () => {
                 onClick={handleVisualizeModal}
             >
                 Visualize    
-            </button>       
+            </button>
+
+            <button
+                onClick={handlePrint}
+            >
+                Print
+            </button>  
 
             <button
                 onClick={handleCleanList}
