@@ -1,11 +1,10 @@
-import { GiftScreen } from './components/gifts/GiftScreen';
-
+import { AppRouter } from './router/AppRouter';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <GiftScreen />
+      <AppRouter />
     </div>
   );
 }
