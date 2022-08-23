@@ -1,21 +1,30 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, Link } from 'react-router-dom';
+import { logout } from '../../store/slices/auth/authSlice';
+
 import './styles.css';
 
 export const Navbar = () => {
 
+    const { logged, email } = useSelector( state => state.auth );
+    const dispatch = useDispatch();
     const [isNavExpanded, setIsNavExpanded] = useState(false);
-    const name = 'Your name';
-    const logged = true;
+    const navigate = useNavigate();
 
-    const handleLogout = () => {
-        console.log('hello');
+    const handleLogout = (e) => {
+        e.preventDefault();
+        dispatch( logout() );
+        navigate('/login', {
+            replace: true
+        });
     }
 
     return (
         <nav className='navbar'>
-            <a href='/' className='navbar__brand-name'>
+            <Link to='/' className='navbar__brand-name'>
                 Christmas Gift App
-            </a>
+            </Link>
 
             <button className='navbar__hamburger' onClick={() => setIsNavExpanded(!isNavExpanded)}>
                 <i className="fa-solid fa-bars"></i>
@@ -25,17 +34,15 @@ export const Navbar = () => {
                 {
                     logged && (
                         <ul>
-                            <li>
-                                { name }
-                            </li>
+                            <span>
+                                { email }
+                            </span>
 
-                            <li
+                            <button
                                 onClick={handleLogout}
                             >
-                                <a href='/'>
-                                    Logout
-                                </a>
-                            </li>
+                                Logout
+                            </button>
                         </ul>
                     )
                 }
