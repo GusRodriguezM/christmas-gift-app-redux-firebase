@@ -1,24 +1,32 @@
 import React from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
-import { LoginScreen } from '../components/auth/LoginScreen';
-import { RegisterScreen } from '../components/auth/RegisterScreen';
-import { Navbar } from '../components/navbar/Navbar';
-import { GiftScreen } from '../components/gifts/GiftScreen';
+import { Route, Routes } from 'react-router-dom';
+import { PrivateRoute } from './PrivateRoute';
+import { PublicRoute } from './PublicRoute';
+import { AuthRoutes } from './AuthRoutes';
+import { GiftsRoutes } from './GiftsRoutes';
 
 export const AppRouter = () => {
+
     return (
         <>
-
-            <Navbar />
-
             <Routes>
-                <Route path="gifts" element={<GiftScreen />} />
 
-                <Route path="login" element={<LoginScreen />} />
-                <Route path="register" element={<RegisterScreen />} />
+                <Route path="auth/*" element={
+                    <PublicRoute>
+                        <Routes>
+                            <Route path="/*" element={<AuthRoutes />} />
+                        </Routes>
+                    </PublicRoute>
+                } />
 
-                <Route path="/" element={<Navigate to="/gifts" />} />
+                <Route path="/*" element={
+                    <PrivateRoute>
+                        <GiftsRoutes />
+                    </PrivateRoute>
+                } />
+
             </Routes>
+
         </>
     )
 }

@@ -14,8 +14,9 @@ export const Navbar = () => {
 
     const handleLogout = (e) => {
         e.preventDefault();
+        localStorage.removeItem('user');
         dispatch( logout() );
-        navigate('/login', {
+        navigate('/auth/login', {
             replace: true
         });
     }

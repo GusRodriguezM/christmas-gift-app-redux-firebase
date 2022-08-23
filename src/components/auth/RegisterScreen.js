@@ -27,6 +27,12 @@ export const RegisterScreen = () => {
         });
     }
 
+    const handleNavigate = () => {
+        navigate('/auth/login', {
+            replace: true
+        });
+    }
+
     return (
         <div className='login'>
 
@@ -72,6 +78,13 @@ export const RegisterScreen = () => {
                 </button>
 
             </form>
+
+            <span>I already have an account</span>
+            <button
+                onClick={handleNavigate}
+            >
+                Login
+            </button>
         </div>
     )
 }

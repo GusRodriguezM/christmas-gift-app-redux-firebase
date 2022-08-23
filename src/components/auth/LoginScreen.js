@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux';
 import { login } from '../../store/slices/auth/authSlice';
 import { useForm } from '../hooks/useForm';
 
+import { apiAuth } from '../../helpers/apiAuth';
+
 export const LoginScreen = () => {
 
     const dispatch = useDispatch();
@@ -19,8 +21,17 @@ export const LoginScreen = () => {
 
     const handleLogin = (e) => {
         e.preventDefault();
+        apiAuth.saveUser({email, logged: true})
+            .then(console.log)
+            .then(console.log);
         dispatch( login(email) );
-        navigate('/', {
+        navigate('/gifts', {
+            replace: true
+        });
+    }
+
+    const handleNavigate = () => {
+        navigate('/auth/register', {
             replace: true
         });
     }
@@ -60,6 +71,13 @@ export const LoginScreen = () => {
                 </button>
 
             </form>
+
+            <span>Sign in</span>
+            <button
+                onClick={handleNavigate}
+            >
+                Register
+            </button>
         </div>
     )
 }
