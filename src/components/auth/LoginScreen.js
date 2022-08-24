@@ -8,6 +8,9 @@ import { useForm } from '../hooks/useForm';
 import { apiAuth } from '../../helpers/apiAuth';
 import { Button } from '../styles/shared/Button.styled';
 
+import Container from '../styles/auth/Container.styled';
+import Input from '../styles/elements/Input.styled';
+
 export const LoginScreen = () => {
 
     const dispatch = useDispatch();
@@ -38,13 +41,13 @@ export const LoginScreen = () => {
     }
 
     return (
-        <div className='login'>
+        <Container>
 
             <h1 className='login__title'>Login</h1>
 
-            <form onSubmit={handleLogin} className='login__form'>
+            <Container.AuthForm onSubmit={handleLogin}>
 
-                <input 
+                <Input
                     type='text'
                     placeholder='Email'
                     name='email'
@@ -54,7 +57,7 @@ export const LoginScreen = () => {
                     onChange={handleInputChange}
                 />
 
-                <input 
+                <Input 
                     type='password'
                     placeholder='Password'
                     name='password'
@@ -68,14 +71,17 @@ export const LoginScreen = () => {
                     <span>Login</span>
                 </Button>
 
-            </form>
+            </Container.AuthForm>
 
-            <span>Sign in</span>
+            <Container.Span>
+                Sign in
+            </Container.Span>
+
             <Button
                 onClick={handleNavigate}
             >
                 Register
             </Button>
-        </div>
+        </Container>
     )
 }
