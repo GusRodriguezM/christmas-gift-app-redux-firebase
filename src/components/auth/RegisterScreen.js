@@ -4,7 +4,9 @@ import { useDispatch } from 'react-redux';
 
 import { login } from '../../store/slices/auth/authSlice';
 import { useForm } from '../hooks/useForm';
-import { AuthButton } from '../styles/shared/Button.styled';
+import Container from '../styles/auth/Container.styled';
+import Input from '../styles/elements/Input.styled';
+import { Button } from '../styles/shared/Button.styled';
 
 export const RegisterScreen = () => {
 
@@ -35,13 +37,13 @@ export const RegisterScreen = () => {
     }
 
     return (
-        <div className='login'>
+        <Container>
 
             <h1 className='login__title'>Sign in</h1>
 
-            <form onSubmit={handleLogin} className='login__form'>
+            <Container.AuthForm onSubmit={handleLogin} className='login__form'>
 
-                <input 
+                <Input
                     type='text'
                     placeholder='Name'
                     name='name'
@@ -51,7 +53,7 @@ export const RegisterScreen = () => {
                     onChange={handleInputChange}
                 />
 
-                <input 
+                <Input 
                     type='text'
                     placeholder='Email'
                     name='email'
@@ -61,7 +63,7 @@ export const RegisterScreen = () => {
                     onChange={handleInputChange}
                 />
 
-                <input 
+                <Input 
                     type='password'
                     placeholder='Password'
                     name='password'
@@ -75,14 +77,14 @@ export const RegisterScreen = () => {
                     <span>Login</span>
                 </Button>
 
-            </form>
+            </Container.AuthForm>
 
-            <span>I already have an account</span>
+            <Container.Span>I already have an account</Container.Span>
             <Button
                 onClick={handleNavigate}
             >
                 Login
             </Button>
-        </div>
+        </Container>
     )
 }
