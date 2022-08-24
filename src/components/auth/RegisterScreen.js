@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import { login } from '../../store/slices/auth/authSlice';
 import { useForm } from '../hooks/useForm';
+import { AuthButton } from '../styles/shared/Button.styled';
 
 export const RegisterScreen = () => {
 
@@ -70,21 +71,18 @@ export const RegisterScreen = () => {
                     onChange={handleInputChange}
                 />
 
-                <button
-                    type='submit'
-                    className='login__form--button'
-                >
+                <Button type='submit'>
                     <span>Login</span>
-                </button>
+                </Button>
 
             </form>
 
             <span>I already have an account</span>
-            <button
+            <Button
                 onClick={handleNavigate}
             >
                 Login
-            </button>
+            </Button>
         </div>
     )
 }

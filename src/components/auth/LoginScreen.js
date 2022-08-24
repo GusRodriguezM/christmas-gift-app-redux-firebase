@@ -6,6 +6,7 @@ import { login } from '../../store/slices/auth/authSlice';
 import { useForm } from '../hooks/useForm';
 
 import { apiAuth } from '../../helpers/apiAuth';
+import { Button } from '../styles/shared/Button.styled';
 
 export const LoginScreen = () => {
 
@@ -63,21 +64,18 @@ export const LoginScreen = () => {
                     onChange={handleInputChange}
                 />
 
-                <button
-                    type='submit'
-                    className='login__form--button'
-                >
+                <Button type='submit' >
                     <span>Login</span>
-                </button>
+                </Button>
 
             </form>
 
             <span>Sign in</span>
-            <button
+            <Button
                 onClick={handleNavigate}
             >
                 Register
-            </button>
+            </Button>
         </div>
     )
 }
