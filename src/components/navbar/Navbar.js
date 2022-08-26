@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { logout } from '../../store/slices/auth/authSlice';
 
-import './styles.css';
+import { BrandName, NavBar, NavContent, NavInfo } from '../styles/navbar/Navbar.styled';
+import { Button } from '../styles/shared/Button.styled';
+import { Span } from '../styles/shared/Span.styled';
 
 export const Navbar = () => {
 
@@ -22,32 +24,32 @@ export const Navbar = () => {
     }
 
     return (
-        <nav className='navbar'>
-            <Link to='/' className='navbar__brand-name'>
+        <NavBar>
+            <BrandName to='/' >
                 Christmas Gift App
-            </Link>
+            </BrandName>
 
-            <button className='navbar__hamburger' onClick={() => setIsNavExpanded(!isNavExpanded)}>
+            {/* <button className='navbar__hamburger' onClick={() => setIsNavExpanded(!isNavExpanded)}>
                 <i className="fa-solid fa-bars"></i>
-            </button>
+            </button> */}
 
-            <div className={isNavExpanded ? 'navbar__navigation-menu expanded' : 'navbar__navigation-menu'}>
+            <NavContent>
                 {
                     logged && (
-                        <ul>
-                            <span>
+                        <NavInfo>
+                            <Span>
                                 { email }
-                            </span>
+                            </Span>
 
-                            <button
+                            <Button
                                 onClick={handleLogout}
                             >
                                 Logout
-                            </button>
-                        </ul>
+                            </Button>
+                        </NavInfo>
                     )
                 }
-            </div>
-        </nav>
+            </NavContent>
+        </NavBar>
     )
 }

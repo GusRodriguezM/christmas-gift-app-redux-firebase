@@ -6,6 +6,8 @@ const theme = {
         red: '#C30F16',
         white: '#FFFFFF',
         list: '#c8e4e4',
+        navbar: '#e8ceac',
+        boxShadow: 'rgba(9, 9, 9, 0.23)',
     }
 }
 
