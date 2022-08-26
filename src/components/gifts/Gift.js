@@ -4,9 +4,11 @@ import { useDispatch } from 'react-redux';
 import { deleteGift, setActiveGift } from '../../store/slices/gifts';
 import { openModal, setOption, setType } from '../../store/slices/modal';
 
-import GiftContainer from '../styles/gifts/Gift.styled';
+import { GiftContainer } from '../styles/gifts/Gift.styled';
 import { GiftButton } from '../styles/shared/Button.styled';
 import { Group } from '../styles/shared/Group.styled';
+import { Image } from '../styles/shared/Image.styled';
+import { Section } from '../styles/shared/Section.styled';
 
 export const Gift = ({ id, name, quantity, image, person, price }) => {
 
@@ -41,13 +43,13 @@ export const Gift = ({ id, name, quantity, image, person, price }) => {
 
     return (
         <GiftContainer>
-            <GiftContainer.Image alt={name} src={image} />
+            <Image alt={name} src={image} />
 
-            <GiftContainer.Section>
+            <Section>
                 <h3>{name}</h3>
                 <h3>{person}</h3>
                 <h3>({quantity}) - {quantity * price}</h3>
-            </GiftContainer.Section>
+            </Section>
 
             <Group>
                 <GiftButton
