@@ -7,6 +7,7 @@ import { useForm } from '../hooks/useForm';
 import Container from '../styles/auth/Container.styled';
 import Input from '../styles/elements/Input.styled';
 import { Button } from '../styles/shared/Button.styled';
+import { Span } from '../styles/shared/Span.styled';
 
 export const RegisterScreen = () => {
 
@@ -79,12 +80,14 @@ export const RegisterScreen = () => {
 
             </Container.AuthForm>
 
-            <Container.Span>I already have an account</Container.Span>
+            <Span>I already have an account</Span>
+
             <Button
                 onClick={handleNavigate}
             >
                 Login
             </Button>
+            
         </Container>
     )
 }
