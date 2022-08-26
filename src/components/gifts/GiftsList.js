@@ -1,13 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Gift } from './Gift';
+import { List } from '../styles/gifts/list/List.styled';
 
 export const GiftsList = () => {
 
     const { gifts } = useSelector( state => state.gifts );
 
     return (
-        <div className=''>
+        <List>
 
             <h1>Gifts:</h1>
             {
@@ -16,6 +17,6 @@ export const GiftsList = () => {
                 ))
             }
         
-        </div>
+        </List>
     )
 }
