@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 import Image from './Image.styled';
 import Section from './Section.styled';
-import Group from './Group.styled';
 
 const GiftContainer = styled.div`
     display: flex;
@@ -14,6 +13,5 @@ const GiftContainer = styled.div`
 
 GiftContainer.Image = Image;
 GiftContainer.Section = Section;
-GiftContainer.Group = Group;
 
 export default GiftContainer;

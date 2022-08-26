@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
-const Span = styled.span`
+export const Span = styled.span`
     text-align: center;
+    margin: 10px 0;
 `;
-
-export default Span;

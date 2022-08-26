@@ -10,6 +10,7 @@ import { Button } from '../styles/shared/Button.styled';
 
 import Container from '../styles/auth/Container.styled';
 import Input from '../styles/elements/Input.styled';
+import { Span } from '../styles/shared/Span.styled';
 
 export const LoginScreen = () => {
 
@@ -73,9 +74,9 @@ export const LoginScreen = () => {
 
             </Container.AuthForm>
 
-            <Container.Span>
+            <Span>
                 Sign in
-            </Container.Span>
+            </Span>
 
             <Button
                 onClick={handleNavigate}

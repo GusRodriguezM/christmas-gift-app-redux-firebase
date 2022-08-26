@@ -14,3 +14,7 @@ export const Empty = styled(List)`
     justify-content: center;
     overflow: auto;
 `;
+
+export const Print = styled.div`
+    display: none;
+`;

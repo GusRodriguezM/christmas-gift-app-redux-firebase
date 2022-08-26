@@ -6,6 +6,7 @@ import { openModal, setOption, setType } from '../../store/slices/modal';
 
 import GiftContainer from '../styles/gifts/Gift.styled';
 import { GiftButton } from '../styles/shared/Button.styled';
+import { Group } from '../styles/shared/Group.styled';
 
 export const Gift = ({ id, name, quantity, image, person, price }) => {
 
@@ -48,7 +49,7 @@ export const Gift = ({ id, name, quantity, image, person, price }) => {
                 <h3>({quantity}) - {quantity * price}</h3>
             </GiftContainer.Section>
 
-            <GiftContainer.Group>
+            <Group>
                 <GiftButton
                     onClick={handleEditGift}
                 >
@@ -66,7 +67,7 @@ export const Gift = ({ id, name, quantity, image, person, price }) => {
                 >
                     Delete
                 </GiftButton>
-            </GiftContainer.Group>
+            </Group>
         </GiftContainer>
     )
 }

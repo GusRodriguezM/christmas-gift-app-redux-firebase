@@ -5,6 +5,7 @@ const theme = {
         disabledButton: '#999595',
         red: '#C30F16',
         white: '#FFFFFF',
+        list: '#c8e4e4',
     }
 }
 

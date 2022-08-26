@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 import AuthForm from './AuthForm.styled';
-import Span from './Span.styled';
 
 const Container = styled.div`
     width: 450px;
@@ -16,6 +15,5 @@ const Container = styled.div`
 `;
 
 Container.AuthForm = AuthForm;
-Container.Span = Span;
 
 export default Container;

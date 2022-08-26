@@ -9,14 +9,11 @@ export const GiftsList = () => {
 
     return (
         <List>
-
-            <h1>Gifts:</h1>
             {
                 gifts.map(gift => (
                     <Gift key={gift.id} {...gift} />
                 ))
             }
-        
         </List>
     )
 }
