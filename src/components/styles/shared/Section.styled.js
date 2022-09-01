@@ -5,3 +5,8 @@ export const Section = styled.div`
     flex-direction: column;
     overflow-wrap: break-word;
 `;
+
+export const SectionPrint = styled(Section)`
+    align-items: flex-end;
+    width: 50%;
+`;
