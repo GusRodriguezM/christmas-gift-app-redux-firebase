@@ -8,6 +8,7 @@ const theme = {
         list: '#c8e4e4',
         navbar: '#e8ceac',
         boxShadow: 'rgba(9, 9, 9, 0.23)',
+        modalBackground: 'rgba(0, 0, 0, 0.5)',
     }
 }
 

@@ -7,5 +7,6 @@ export const Form = styled.form`
     justify-content: space-around;
     align-items: flex-start;
     margin: 0 10px;
+    padding: 0 10px;
     background-color: ${({ theme }) => theme.colors.list};
 `;
