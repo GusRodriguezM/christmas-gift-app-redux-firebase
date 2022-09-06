@@ -40,15 +40,14 @@ export const RegisterScreen = () => {
     return (
         <Container>
 
-            <h1 className='login__title'>Sign in</h1>
+            <h1>Sign in</h1>
 
-            <Container.AuthForm onSubmit={handleLogin} className='login__form'>
+            <Container.AuthForm onSubmit={handleLogin}>
 
                 <Input
                     type='text'
                     placeholder='Name'
                     name='name'
-                    className='login__form--input'
                     autoComplete='off'
                     value={name}
                     onChange={handleInputChange}
@@ -58,7 +57,6 @@ export const RegisterScreen = () => {
                     type='text'
                     placeholder='Email'
                     name='email'
-                    className='login__form--input'
                     autoComplete='off'
                     value={email}
                     onChange={handleInputChange}
@@ -68,7 +66,6 @@ export const RegisterScreen = () => {
                     type='password'
                     placeholder='Password'
                     name='password'
-                    className='login__form--input'
                     autoComplete='off'
                     value={password}
                     onChange={handleInputChange}

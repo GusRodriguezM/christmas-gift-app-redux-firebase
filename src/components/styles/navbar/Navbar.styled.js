@@ -2,13 +2,14 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const NavBar = styled.nav`
-    height: 60px;
+    height: 50px;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     position: relative;
     padding: 0.5rem 0;
+    margin-bottom: 20px;
     background-color: ${({ theme }) => theme.colors.navbar};;
     color: ${({ theme }) => theme.colors.black};
     box-shadow: 0 2px 2px 2px ${({ theme }) => theme.colors.boxShadow};;

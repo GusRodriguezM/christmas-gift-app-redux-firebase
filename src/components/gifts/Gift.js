@@ -51,7 +51,7 @@ export const Gift = ({ id, name, quantity, image, person, price }) => {
                 <h3>({quantity}) - {quantity * price}</h3>
             </Section>
 
-            <Group>
+            <Group size='small'>
                 <GiftButton
                     onClick={handleEditGift}
                 >

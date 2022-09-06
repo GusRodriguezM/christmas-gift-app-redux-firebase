@@ -33,7 +33,6 @@ export const Modal = ({title, children}) => {
                 <HeaderFooter>
                     <GiftButton
                         onClick={handleCloseModal}
-                        className='button'
                     >
                         <span>Close</span>
                     </GiftButton>

@@ -98,7 +98,7 @@ export const GiftScreen = () => {
                 <h1>Total: {total}</h1>
             </Span>
 
-            <Group>
+            <Group size='large'>
                 <GiftButton
                     onClick={handleVisualizeModal}
                 >

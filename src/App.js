@@ -1,14 +1,16 @@
 import { AppRouter } from './router/AppRouter';
-import './App.css';
 import { ThemeProvider } from 'styled-components';
 import theme from './components/styles/theme/theme';
+import { MainContainer } from './components/styles/App.styled';
+import GlobalStyles from './components/styles/Global';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <div className="App">
+      <GlobalStyles />
+      <MainContainer>
         <AppRouter />
-      </div>
+      </MainContainer>
     </ThemeProvider>
   );
 }

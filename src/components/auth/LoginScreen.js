@@ -44,7 +44,7 @@ export const LoginScreen = () => {
     return (
         <Container>
 
-            <h1 className='login__title'>Login</h1>
+            <h1>Login</h1>
 
             <Container.AuthForm onSubmit={handleLogin}>
 
@@ -52,7 +52,6 @@ export const LoginScreen = () => {
                     type='text'
                     placeholder='Email'
                     name='email'
-                    className='login__form--input'
                     autoComplete='off'
                     value={email}
                     onChange={handleInputChange}
@@ -62,7 +61,6 @@ export const LoginScreen = () => {
                     type='password'
                     placeholder='Password'
                     name='password'
-                    className='login__form--input'
                     autoComplete='off'
                     value={password}
                     onChange={handleInputChange}
