@@ -1,11 +1,17 @@
 import { AppRouter } from './router/AppRouter';
-import './App.css';
+import { ThemeProvider } from 'styled-components';
+import theme from './components/styles/theme/theme';
+import { MainContainer } from './components/styles/App.styled';
+import GlobalStyles from './components/styles/Global';
 
 function App() {
   return (
-    <div className="App">
-      <AppRouter />
-    </div>
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      <MainContainer>
+        <AppRouter />
+      </MainContainer>
+    </ThemeProvider>
   );
 }
 

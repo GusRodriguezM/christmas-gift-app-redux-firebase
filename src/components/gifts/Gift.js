@@ -4,6 +4,12 @@ import { useDispatch } from 'react-redux';
 import { deleteGift, setActiveGift } from '../../store/slices/gifts';
 import { openModal, setOption, setType } from '../../store/slices/modal';
 
+import { GiftContainer } from '../styles/gifts/Gift.styled';
+import { GiftButton } from '../styles/shared/Button.styled';
+import { Group } from '../styles/shared/Group.styled';
+import { Image } from '../styles/shared/Image.styled';
+import { Section } from '../styles/shared/Section.styled';
+
 export const Gift = ({ id, name, quantity, image, person, price }) => {
 
     const dispatch = useDispatch();
@@ -36,32 +42,34 @@ export const Gift = ({ id, name, quantity, image, person, price }) => {
     }
 
     return (
-        <div>
-            <img alt={name} src={image} style={{width: '100px', height: '100px'}}/>
+        <GiftContainer>
+            <Image alt={name} src={image} />
 
-            <div>
+            <Section>
                 <h3>{name}</h3>
                 <h3>{person}</h3>
                 <h3>({quantity}) - {quantity * price}</h3>
-            </div>
+            </Section>
 
-            <button
-                onClick={handleEditGift}
-            >
-                Edit
-            </button>
+            <Group size='small'>
+                <GiftButton
+                    onClick={handleEditGift}
+                >
+                    Edit
+                </GiftButton>
 
-            <button
-                onClick={handleDuplicateGift}
-            >
-                Duplicate
-            </button>
+                <GiftButton
+                    onClick={handleDuplicateGift}
+                >
+                    Duplicate
+                </GiftButton>
 
-            <button
-                onClick={handleDeleteGift}
-            >
-                Delete
-            </button>
-        </div>
+                <GiftButton
+                    onClick={handleDeleteGift}
+                >
+                    Delete
+                </GiftButton>
+            </Group>
+        </GiftContainer>
     )
 }

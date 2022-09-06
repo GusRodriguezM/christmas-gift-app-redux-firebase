@@ -2,8 +2,8 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteActiveGift } from '../../store/slices/gifts';
 import { closeModal } from '../../store/slices/modal/modalSlice';
-
-import './modal.css'
+import { ContentBody, HeaderFooter, ModalContainer, ModalContent } from '../styles/modal/ModalContainer.styled';
+import { GiftButton } from '../styles/shared/Button.styled';
 
 export const Modal = ({title, children}) => {
 
@@ -20,27 +20,24 @@ export const Modal = ({title, children}) => {
     }
 
     return (
-        <div className='modal' onClick={handleCloseModal}>
-            <div className='modal__content' onClick={e => e.stopPropagation()}>
-                <div className='modal__content--header'>
-                    <h3 className='modal__content--title'>
-                        {title}
-                    </h3>
-                </div>
+        <ModalContainer onClick={handleCloseModal}>
+            <ModalContent onClick={e => e.stopPropagation()}>
+                <HeaderFooter>
+                    <h3>{title}</h3>
+                </HeaderFooter>
                 
-                <div className='modal__content--body'>
+                <ContentBody>
                     {children}
-                </div>
+                </ContentBody>
 
-                <div className='modal__content--footer'>
-                    <button
+                <HeaderFooter>
+                    <GiftButton
                         onClick={handleCloseModal}
-                        className='button'
                     >
                         <span>Close</span>
-                    </button>
-                </div>
-            </div>
-        </div>
+                    </GiftButton>
+                </HeaderFooter>
+            </ModalContent>
+        </ModalContainer>
     )
 }

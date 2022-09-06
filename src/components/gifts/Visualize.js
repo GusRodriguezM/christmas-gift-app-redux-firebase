@@ -1,23 +1,27 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Image } from '../styles/shared/Image.styled';
+import { Section } from '../styles/shared/Section.styled';
+import { Container } from '../styles/gifts/visualize/Visualize.styled';
+import { VisualizeGift } from '../styles/gifts/Gift.styled';
 
 export const Visualize = () => {
 
     const { gifts } = useSelector( state => state.gifts );
 
     return (
-        <div>
+        <Container>
             {
                 gifts.map(gift => (
-                    <div key={gift.id}>
-                        <img style={{width: '100px', height: '100px'}} alt={gift.name} src={gift.image} />
-                        <div>
+                    <VisualizeGift>
+                        <Image alt={gift.name} src={gift.image} />
+                        <Section>
                             <h4>{gift.name} - ({gift.quantity})</h4>
                             <h4>To: {gift.person}</h4>
-                        </div>
-                    </div>
+                        </Section>
+                    </VisualizeGift>
                 ))
             }
-        </div>
+        </Container>
     )
 }

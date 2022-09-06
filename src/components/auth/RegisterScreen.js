@@ -4,6 +4,10 @@ import { useDispatch } from 'react-redux';
 
 import { login } from '../../store/slices/auth/authSlice';
 import { useForm } from '../hooks/useForm';
+import Container from '../styles/auth/Container.styled';
+import Input from '../styles/elements/Input.styled';
+import { Button } from '../styles/shared/Button.styled';
+import { Span } from '../styles/shared/Span.styled';
 
 export const RegisterScreen = () => {
 
@@ -34,57 +38,53 @@ export const RegisterScreen = () => {
     }
 
     return (
-        <div className='login'>
+        <Container>
 
-            <h1 className='login__title'>Sign in</h1>
+            <h1>Sign in</h1>
 
-            <form onSubmit={handleLogin} className='login__form'>
+            <Container.AuthForm onSubmit={handleLogin}>
 
-                <input 
+                <Input
                     type='text'
                     placeholder='Name'
                     name='name'
-                    className='login__form--input'
                     autoComplete='off'
                     value={name}
                     onChange={handleInputChange}
                 />
 
-                <input 
+                <Input 
                     type='text'
                     placeholder='Email'
                     name='email'
-                    className='login__form--input'
                     autoComplete='off'
                     value={email}
                     onChange={handleInputChange}
                 />
 
-                <input 
+                <Input 
                     type='password'
                     placeholder='Password'
                     name='password'
-                    className='login__form--input'
                     autoComplete='off'
                     value={password}
                     onChange={handleInputChange}
                 />
 
-                <button
-                    type='submit'
-                    className='login__form--button'
-                >
+                <Button type='submit'>
                     <span>Login</span>
-                </button>
+                </Button>
 
-            </form>
+            </Container.AuthForm>
 
-            <span>I already have an account</span>
-            <button
+            <Span>I already have an account</Span>
+
+            <Button
                 onClick={handleNavigate}
             >
                 Login
-            </button>
-        </div>
+            </Button>
+            
+        </Container>
     )
 }

@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addGift, deleteActiveGift, duplicateGift, editGift } from '../../store/slices/gifts';
 import { closeModal } from '../../store/slices/modal';
 import { defaultGifts } from '../../helpers/defaultGifts';
+import { GiftButton } from '../styles/shared/Button.styled';
+import Input from '../styles/elements/Input.styled';
+import { Form } from '../styles/gifts/form/Form.styled';
 
 const initValues = {
     name: '',
@@ -114,8 +117,8 @@ export const GiftForm = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input
+        <Form onSubmit={handleSubmit}>
+            <Input
                 type='text'
                 placeholder='Your Gift'
                 name='name'
@@ -125,13 +128,13 @@ export const GiftForm = () => {
                 onChange={handleInputChange}
             />
 
-            <button
+            <GiftButton
                 onClick={handleGetRandomGift}
             >
                 Surprise
-            </button>
+            </GiftButton>
 
-            <input 
+            <Input
                 type='number'
                 placeholder='Quantity'
                 name='quantity'
@@ -141,7 +144,7 @@ export const GiftForm = () => {
                 onChange={handleInputChange}
             />
 
-            <input
+            <Input
                 type='text'
                 placeholder='Your image'
                 name='image'
@@ -151,7 +154,7 @@ export const GiftForm = () => {
                 onChange={handleInputChange}
             />
 
-            <input 
+            <Input
                 type='text'
                 placeholder='To:'
                 name='person'
@@ -161,7 +164,7 @@ export const GiftForm = () => {
                 onChange={handleInputChange}
             />
 
-            <input
+            <Input
                 type='number'
                 placeholder='Price'
                 name='price'
@@ -175,13 +178,13 @@ export const GiftForm = () => {
                 onChange={handleInputChange}
             />
 
-            <button
+            <GiftButton
                 type='submit'
                 disabled={isFormValid()}
             >
                 Add a gift
-            </button>
+            </GiftButton>
 
-        </form>
+        </Form>
     )
 }

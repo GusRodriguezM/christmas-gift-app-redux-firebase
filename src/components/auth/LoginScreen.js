@@ -6,6 +6,11 @@ import { login } from '../../store/slices/auth/authSlice';
 import { useForm } from '../hooks/useForm';
 
 import { apiAuth } from '../../helpers/apiAuth';
+import { Button } from '../styles/shared/Button.styled';
+
+import Container from '../styles/auth/Container.styled';
+import Input from '../styles/elements/Input.styled';
+import { Span } from '../styles/shared/Span.styled';
 
 export const LoginScreen = () => {
 
@@ -37,47 +42,45 @@ export const LoginScreen = () => {
     }
 
     return (
-        <div className='login'>
+        <Container>
 
-            <h1 className='login__title'>Login</h1>
+            <h1>Login</h1>
 
-            <form onSubmit={handleLogin} className='login__form'>
+            <Container.AuthForm onSubmit={handleLogin}>
 
-                <input 
+                <Input
                     type='text'
                     placeholder='Email'
                     name='email'
-                    className='login__form--input'
                     autoComplete='off'
                     value={email}
                     onChange={handleInputChange}
                 />
 
-                <input 
+                <Input 
                     type='password'
                     placeholder='Password'
                     name='password'
-                    className='login__form--input'
                     autoComplete='off'
                     value={password}
                     onChange={handleInputChange}
                 />
 
-                <button
-                    type='submit'
-                    className='login__form--button'
-                >
+                <Button type='submit' >
                     <span>Login</span>
-                </button>
+                </Button>
 
-            </form>
+            </Container.AuthForm>
 
-            <span>Sign in</span>
-            <button
+            <Span>
+                Sign in
+            </Span>
+
+            <Button
                 onClick={handleNavigate}
             >
                 Register
-            </button>
-        </div>
+            </Button>
+        </Container>
     )
 }

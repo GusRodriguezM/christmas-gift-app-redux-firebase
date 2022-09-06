@@ -12,7 +12,11 @@ import { GiftListToPrint } from './GiftListToPrint';
 import { cleanList } from '../../store/slices/gifts';
 import { openModal, setType } from '../../store/slices/modal';
 
-import './styles.css';
+import Main from '../styles/gifts/screen/Main.styled';
+import { GiftButton } from '../styles/shared/Button.styled';
+import { Group } from '../styles/shared/Group.styled';
+import { Print } from '../styles/gifts/list/List.styled';
+import { Span } from '../styles/shared/Span.styled';
 
 export const GiftScreen = () => {
 
@@ -57,13 +61,17 @@ export const GiftScreen = () => {
     
 
     return (
-        <div className='gifts'>
+        <Main>
 
-            <button
+            <Span>
+                <h1>Gifts:</h1>
+            </Span>
+
+            <GiftButton
                 onClick={handleOpenModal}
             >
                 Add Gift
-            </button>
+            </GiftButton>
 
             <Modal title={type === 'form' ? 'Form' : 'Visualize'}>
 
@@ -75,9 +83,9 @@ export const GiftScreen = () => {
                 
             </Modal>
 
-            <div style={{display: 'none'}}>
+            <Print>
                 <GiftListToPrint ref={componentRef} total={total} /> 
-            </div>
+            </Print>
 
             
             {
@@ -86,27 +94,29 @@ export const GiftScreen = () => {
                     : (<GiftsList />)
             }
 
-            <span>
-                Total: {total}
-            </span>
+            <Span>
+                <h1>Total: {total}</h1>
+            </Span>
 
-            <button
-                onClick={handleVisualizeModal}
-            >
-                Visualize    
-            </button>
+            <Group size='large'>
+                <GiftButton
+                    onClick={handleVisualizeModal}
+                >
+                    Visualize    
+                </GiftButton>
 
-            <button
-                onClick={handlePrint}
-            >
-                Print
-            </button>  
+                <GiftButton
+                    onClick={handlePrint}
+                >
+                    Print
+                </GiftButton>  
 
-            <button
-                onClick={handleCleanList}
-            >
-                Delete All
-            </button>
-        </div>
+                <GiftButton
+                    onClick={handleCleanList}
+                >
+                    Delete All
+                </GiftButton>
+            </Group>
+        </Main>
     )
 }
