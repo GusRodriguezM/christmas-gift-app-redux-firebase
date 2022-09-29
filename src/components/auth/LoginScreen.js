@@ -11,6 +11,7 @@ import { Button } from '../styles/shared/Button.styled';
 import Container from '../styles/auth/Container.styled';
 import Input from '../styles/elements/Input.styled';
 import { Span } from '../styles/shared/Span.styled';
+import { checkingAuthentication, startGoogleSignIn } from '../../store/slices/auth';
 
 export const LoginScreen = () => {
 
@@ -26,13 +27,19 @@ export const LoginScreen = () => {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        apiAuth.saveUser({email, logged: true})
-            .then(console.log)
-            .then(console.log);
-        dispatch( login(email) );
-        navigate('/gifts', {
-            replace: true
-        });
+        // apiAuth.saveUser({email, logged: true})
+        //     .then(console.log)
+        //     .then(console.log);
+        // dispatch( login(email) );
+        // navigate('/gifts', {
+        //     replace: true
+        // });
+
+        dispatch( checkingAuthentication() );
+    }
+
+    const handleGoogleSignIn = () => {
+        dispatch( startGoogleSignIn() );
     }
 
     const handleNavigate = () => {
@@ -68,6 +75,10 @@ export const LoginScreen = () => {
 
                 <Button type='submit' >
                     <span>Login</span>
+                </Button>
+
+                <Button onClick={handleGoogleSignIn}>
+                    Google Login
                 </Button>
 
             </Container.AuthForm>
