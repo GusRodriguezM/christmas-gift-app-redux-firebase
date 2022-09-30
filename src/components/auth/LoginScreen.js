@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { login } from '../../store/slices/auth/authSlice';
 import { useForm } from '../hooks/useForm';
@@ -15,6 +15,7 @@ import { checkingAuthentication, startGoogleSignIn } from '../../store/slices/au
 
 export const LoginScreen = () => {
 
+    const { status } = useSelector( state => state.auth );
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -24,6 +25,8 @@ export const LoginScreen = () => {
     });
 
     const { email, password } = formValues;
+
+    const isAuthenticating = useMemo(() => status === 'checking', [status]);
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -73,11 +76,19 @@ export const LoginScreen = () => {
                     onChange={handleInputChange}
                 />
 
-                <Button type='submit' >
-                    <span>Login</span>
+                <Button 
+                    type='submit'
+                    disabled={isAuthenticating}
+                    inactive={isAuthenticating}
+                >
+                    Login
                 </Button>
 
-                <Button onClick={handleGoogleSignIn}>
+                <Button 
+                    onClick={handleGoogleSignIn}
+                    disabled={isAuthenticating}
+                    inactive={isAuthenticating}
+                >
                     Google Login
                 </Button>
 
@@ -89,6 +100,8 @@ export const LoginScreen = () => {
 
             <Button
                 onClick={handleNavigate}
+                disabled={isAuthenticating}
+                inactive={isAuthenticating}
             >
                 Register
             </Button>
