@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+import validator from 'validator';
 
 import { login } from '../../store/slices/auth/authSlice';
 import { useForm } from '../hooks/useForm';
@@ -8,33 +10,66 @@ import Container from '../styles/auth/Container.styled';
 import Input from '../styles/elements/Input.styled';
 import { Button } from '../styles/shared/Button.styled';
 import { Span } from '../styles/shared/Span.styled';
+import { removeErrorMessage, setErrorMessage } from '../../store/slices/ui/uiSlice';
 
 export const RegisterScreen = () => {
 
+    const { msgError } = useSelector( state => state.ui );
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const [formValues, handleInputChange] = useForm({
         name: '',
         email: '',
-        password: ''
+        password: '',
+        password2: ''
     });
 
-    const { name, email, password } = formValues;
+    const { name, email, password, password2 } = formValues;
 
-    const handleLogin = (e) => {
+    const isFormValid = () => {
+        if(validator.isEmpty(name) && validator.isEmpty(email) && validator.isEmpty(password) && validator.isEmpty(password2)){
+            dispatch( setErrorMessage('This fields are required') );
+            return false;
+        }else if(validator.isEmpty(name)){
+            dispatch( setErrorMessage('The name is required') );
+            return false;
+        }else if(validator.isEmpty(email)){
+            dispatch( setErrorMessage('The email is required') );
+            return false;
+        }else if(!validator.isEmail(email)){
+            dispatch( setErrorMessage('The email is not valid') );
+            return false;
+        }else if(password.length !== 6 && password2.length !== 6){
+            dispatch( setErrorMessage('The password should be at least 6 characters') );
+            return false;
+        }else if(password !== password2){
+            dispatch( setErrorMessage('The passwords should match') );
+            return false;
+        }
+
+        dispatch( removeErrorMessage() );
+        return true;
+    }
+
+    const handleRegister = (e) => {
         e.preventDefault();
+
+        if(isFormValid()){
+            console.log('success');
+            // dispatch( login(email) );
+            // navigate('/', {
+            //     replace: true
+            // });
+        }
         
-        dispatch( login(email) );
-        navigate('/', {
-            replace: true
-        });
     }
 
     const handleNavigate = () => {
         navigate('/auth/login', {
             replace: true
         });
+        dispatch( removeErrorMessage() );
     }
 
     return (
@@ -42,7 +77,13 @@ export const RegisterScreen = () => {
 
             <h1>Sign in</h1>
 
-            <Container.AuthForm onSubmit={handleLogin}>
+            {
+                msgError && (
+                    <span>{msgError}</span>
+                )
+            }
+
+            <Container.AuthForm onSubmit={handleRegister}>
 
                 <Input
                     type='text'
@@ -71,8 +112,17 @@ export const RegisterScreen = () => {
                     onChange={handleInputChange}
                 />
 
+                <Input 
+                    type='password'
+                    placeholder='Password'
+                    name='password2'
+                    autoComplete='off'
+                    value={password2}
+                    onChange={handleInputChange}
+                />
+
                 <Button type='submit'>
-                    <span>Login</span>
+                    Register
                 </Button>
 
             </Container.AuthForm>

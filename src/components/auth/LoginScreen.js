@@ -3,19 +3,23 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { login } from '../../store/slices/auth/authSlice';
+
+import validator from 'validator';
+
 import { useForm } from '../hooks/useForm';
 
 import { apiAuth } from '../../helpers/apiAuth';
 import { Button } from '../styles/shared/Button.styled';
-
 import Container from '../styles/auth/Container.styled';
 import Input from '../styles/elements/Input.styled';
 import { Span } from '../styles/shared/Span.styled';
 import { checkingAuthentication, startGoogleSignIn } from '../../store/slices/auth';
+import { removeErrorMessage, setErrorMessage } from '../../store/slices/ui/uiSlice';
 
 export const LoginScreen = () => {
 
     const { status } = useSelector( state => state.auth );
+    const { msgError } = useSelector( state => state.ui );
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -28,6 +32,25 @@ export const LoginScreen = () => {
 
     const isAuthenticating = useMemo(() => status === 'checking', [status]);
 
+    const isFormValid = () => {
+        if(validator.isEmpty(email) && validator.isEmpty(password)){
+            dispatch( setErrorMessage('This fields are required') );
+            return false;
+        }else if(validator.isEmpty(email)){
+            dispatch( setErrorMessage('The name is required') );
+            return false;
+        }else if(!validator.isEmail(email)){
+            dispatch( setErrorMessage('The email is not valid') );
+            return false;
+        }else if(validator.isEmpty(password)){
+            dispatch( setErrorMessage('The password is required') );
+            return false;
+        }
+
+        dispatch( removeErrorMessage() );
+        return true;
+    }
+
     const handleLogin = (e) => {
         e.preventDefault();
         // apiAuth.saveUser({email, logged: true})
@@ -38,7 +61,8 @@ export const LoginScreen = () => {
         //     replace: true
         // });
 
-        dispatch( checkingAuthentication() );
+        if(isFormValid())
+            dispatch( checkingAuthentication() );
     }
 
     const handleGoogleSignIn = () => {
@@ -49,12 +73,19 @@ export const LoginScreen = () => {
         navigate('/auth/register', {
             replace: true
         });
+        dispatch( removeErrorMessage() );
     }
 
     return (
         <Container>
 
             <h1>Login</h1>
+
+            {
+                msgError && (
+                    <span>{msgError}</span>
+                )
+            }
 
             <Container.AuthForm onSubmit={handleLogin}>
 
