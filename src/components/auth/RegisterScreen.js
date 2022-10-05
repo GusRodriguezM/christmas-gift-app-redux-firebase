@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -10,11 +10,13 @@ import Container from '../styles/auth/Container.styled';
 import Input from '../styles/elements/Input.styled';
 import { Button } from '../styles/shared/Button.styled';
 import { Span } from '../styles/shared/Span.styled';
-import { removeErrorMessage, setErrorMessage } from '../../store/slices/ui/uiSlice';
+import { removeErrorMessage, setErrorMessage } from '../../store/slices/ui';
+import { startCreatingUserWithEmailPassword } from '../../store/slices/auth';
 
 export const RegisterScreen = () => {
 
     const { msgError } = useSelector( state => state.ui );
+    const { status } = useSelector( state => state.auth );
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -26,6 +28,8 @@ export const RegisterScreen = () => {
     });
 
     const { name, email, password, password2 } = formValues;
+
+    const isAuthenticating = useMemo(() => status === 'checking', [status]);
 
     const isFormValid = () => {
         if(validator.isEmpty(name) && validator.isEmpty(email) && validator.isEmpty(password) && validator.isEmpty(password2)){
@@ -56,7 +60,8 @@ export const RegisterScreen = () => {
         e.preventDefault();
 
         if(isFormValid()){
-            console.log('success');
+            dispatch( startCreatingUserWithEmailPassword({email, password, displayName: name}) );
+            // console.log('success');
             // dispatch( login(email) );
             // navigate('/', {
             //     replace: true
@@ -121,7 +126,11 @@ export const RegisterScreen = () => {
                     onChange={handleInputChange}
                 />
 
-                <Button type='submit'>
+                <Button 
+                    type='submit'
+                    disabled={isAuthenticating}
+                    inactive={isAuthenticating}
+                >
                     Register
                 </Button>
 
@@ -131,6 +140,8 @@ export const RegisterScreen = () => {
 
             <Button
                 onClick={handleNavigate}
+                disabled={isAuthenticating}
+                inactive={isAuthenticating}
             >
                 Login
             </Button>
