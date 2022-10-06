@@ -1,12 +1,12 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
+import { useCheckAuth } from '../hooks';
 
 export const PrivateRoute = ({children}) => {
 
-    const { logged } = useSelector( state => state.auth );
+    const status = useCheckAuth();
 
-    return (logged)
+    return (status === 'authenticated')
         ?   children
         :   <Navigate to="/auth/login" />
 }

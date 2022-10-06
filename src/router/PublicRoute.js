@@ -1,12 +1,12 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
+import { useCheckAuth } from '../hooks';
 
 export const PublicRoute = ({children}) => {
 
-    const { logged } = useSelector( state => state.auth );
+    const status = useCheckAuth();
 
-    return (!logged)
+    return (status === 'non-authenticated')
         ?   children
         :   <Navigate to="/gifts" />
 }

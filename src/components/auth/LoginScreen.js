@@ -1,20 +1,17 @@
 import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { login } from '../../store/slices/auth/authSlice';
-
 import validator from 'validator';
 
-import { useForm } from '../hooks/useForm';
+import { startGoogleSignIn, startLoginWithEmailPassword } from '../../store/slices/auth';
+import { removeErrorMessage, setErrorMessage } from '../../store/slices/ui';
+import { useForm } from '../../hooks';
 
 import { apiAuth } from '../../helpers/apiAuth';
 import { Button } from '../styles/shared/Button.styled';
 import Container from '../styles/auth/Container.styled';
 import Input from '../styles/elements/Input.styled';
 import { Span } from '../styles/shared/Span.styled';
-import { checkingAuthentication, startGoogleSignIn, startLoginWithEmailPassword } from '../../store/slices/auth';
-import { removeErrorMessage, setErrorMessage } from '../../store/slices/ui';
 
 export const LoginScreen = () => {
 

@@ -1,17 +1,17 @@
 import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
 import validator from 'validator';
 
-import { login } from '../../store/slices/auth/authSlice';
-import { useForm } from '../hooks/useForm';
+import { removeErrorMessage, setErrorMessage } from '../../store/slices/ui';
+import { startCreatingUserWithEmailPassword } from '../../store/slices/auth';
+
+import { useForm } from '../../hooks';
+
 import Container from '../styles/auth/Container.styled';
 import Input from '../styles/elements/Input.styled';
 import { Button } from '../styles/shared/Button.styled';
 import { Span } from '../styles/shared/Span.styled';
-import { removeErrorMessage, setErrorMessage } from '../../store/slices/ui';
-import { startCreatingUserWithEmailPassword } from '../../store/slices/auth';
 
 export const RegisterScreen = () => {
 
