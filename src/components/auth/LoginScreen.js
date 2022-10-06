@@ -13,8 +13,8 @@ import { Button } from '../styles/shared/Button.styled';
 import Container from '../styles/auth/Container.styled';
 import Input from '../styles/elements/Input.styled';
 import { Span } from '../styles/shared/Span.styled';
-import { checkingAuthentication, startGoogleSignIn } from '../../store/slices/auth';
-import { removeErrorMessage, setErrorMessage } from '../../store/slices/ui/uiSlice';
+import { checkingAuthentication, startGoogleSignIn, startLoginWithEmailPassword } from '../../store/slices/auth';
+import { removeErrorMessage, setErrorMessage } from '../../store/slices/ui';
 
 export const LoginScreen = () => {
 
@@ -62,7 +62,7 @@ export const LoginScreen = () => {
         // });
 
         if(isFormValid())
-            dispatch( checkingAuthentication() );
+            dispatch( startLoginWithEmailPassword({email, password}) );
     }
 
     const handleGoogleSignIn = () => {
