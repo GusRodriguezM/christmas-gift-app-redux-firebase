@@ -1,26 +1,19 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { logout } from '../../store/slices/auth/authSlice';
-
+import { startLogout } from '../../store/slices/auth';
 import { BrandName, NavBar, NavContent, NavInfo } from '../styles/navbar/Navbar.styled';
 import { Button } from '../styles/shared/Button.styled';
 import { Span } from '../styles/shared/Span.styled';
 
 export const Navbar = () => {
 
-    const { logged, email } = useSelector( state => state.auth );
+    const { status, userName } = useSelector( state => state.auth );
     const dispatch = useDispatch();
     const [isNavExpanded, setIsNavExpanded] = useState(false);
-    const navigate = useNavigate();
 
     const handleLogout = (e) => {
         e.preventDefault();
-        localStorage.removeItem('user');
-        dispatch( logout() );
-        navigate('/auth/login', {
-            replace: true
-        });
+        dispatch( startLogout() );
     }
 
     return (
@@ -35,10 +28,10 @@ export const Navbar = () => {
 
             <NavContent>
                 {
-                    logged && (
+                    status === 'authenticated' && (
                         <NavInfo>
                             <Span>
-                                { email }
+                                { userName }
                             </Span>
 
                             <Button

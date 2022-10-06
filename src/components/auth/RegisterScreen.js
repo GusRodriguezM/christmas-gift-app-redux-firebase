@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import validator from 'validator';
 
@@ -18,7 +18,6 @@ export const RegisterScreen = () => {
     const { msgError } = useSelector( state => state.ui );
     const { status } = useSelector( state => state.auth );
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const [formValues, handleInputChange] = useForm({
         name: '',
@@ -61,20 +60,8 @@ export const RegisterScreen = () => {
 
         if(isFormValid()){
             dispatch( startCreatingUserWithEmailPassword({email, password, displayName: name}) );
-            // console.log('success');
-            // dispatch( login(email) );
-            // navigate('/', {
-            //     replace: true
-            // });
         }
         
-    }
-
-    const handleNavigate = () => {
-        navigate('/auth/login', {
-            replace: true
-        });
-        dispatch( removeErrorMessage() );
     }
 
     return (
@@ -136,15 +123,12 @@ export const RegisterScreen = () => {
 
             </Container.AuthForm>
 
-            <Span>I already have an account</Span>
-
-            <Button
-                onClick={handleNavigate}
-                disabled={isAuthenticating}
-                inactive={isAuthenticating}
+            <Link
+                aria-disabled={isAuthenticating}
+                to='/auth/login'
             >
-                Login
-            </Button>
+                Go to Login
+            </Link>
             
         </Container>
     )

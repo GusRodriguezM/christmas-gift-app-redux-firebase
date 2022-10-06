@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import validator from 'validator';
 
@@ -7,7 +7,6 @@ import { startGoogleSignIn, startLoginWithEmailPassword } from '../../store/slic
 import { removeErrorMessage, setErrorMessage } from '../../store/slices/ui';
 import { useForm } from '../../hooks';
 
-import { apiAuth } from '../../helpers/apiAuth';
 import { Button } from '../styles/shared/Button.styled';
 import Container from '../styles/auth/Container.styled';
 import Input from '../styles/elements/Input.styled';
@@ -18,7 +17,6 @@ export const LoginScreen = () => {
     const { status } = useSelector( state => state.auth );
     const { msgError } = useSelector( state => state.ui );
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const [formValues, handleInputChange] = useForm({
         email: '',
@@ -50,27 +48,13 @@ export const LoginScreen = () => {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        // apiAuth.saveUser({email, logged: true})
-        //     .then(console.log)
-        //     .then(console.log);
-        // dispatch( login(email) );
-        // navigate('/gifts', {
-        //     replace: true
-        // });
-
+        
         if(isFormValid())
             dispatch( startLoginWithEmailPassword({email, password}) );
     }
 
     const handleGoogleSignIn = () => {
         dispatch( startGoogleSignIn() );
-    }
-
-    const handleNavigate = () => {
-        navigate('/auth/register', {
-            replace: true
-        });
-        dispatch( removeErrorMessage() );
     }
 
     return (
@@ -122,17 +106,12 @@ export const LoginScreen = () => {
 
             </Container.AuthForm>
 
-            <Span>
-                Sign in
-            </Span>
-
-            <Button
-                onClick={handleNavigate}
-                disabled={isAuthenticating}
-                inactive={isAuthenticating}
+            <Link
+                aria-disabled={isAuthenticating}
+                to='/auth/register'
             >
-                Register
-            </Button>
+                Create a new account
+            </Link>
         </Container>
     )
 }
