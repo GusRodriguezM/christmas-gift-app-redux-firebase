@@ -4,7 +4,9 @@ export const giftsSlice = createSlice({
   name: 'gifts',
   initialState: {
     gifts: [],
-    activeGift: null
+    activeGift: null, //id, name, price, to, quantity, imgURL
+    isSaving: true,
+    messageSaved: ''
   },
   reducers: {
     addGift: (state, action) => {
@@ -44,7 +46,13 @@ export const giftsSlice = createSlice({
     },
     deleteActiveGift: (state) => {
       state.activeGift = null;
-    }
+    },
+    setGifts: (state, action) => {
+
+    },
+    setSavingGift: (stae, action) => {
+
+    },
   },
 });
 
