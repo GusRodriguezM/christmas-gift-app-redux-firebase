@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addGift, deleteActiveGift, duplicateGift, editGift } from '../../store/slices/gifts';
+import { addGift, deleteActiveGift, duplicateGift, editGift, setActiveGift, startAddingNewGift } from '../../store/slices/gifts';
 import { closeModal } from '../../store/slices/modal';
 import { defaultGifts } from '../../helpers/defaultGifts';
 import { GiftButton } from '../styles/shared/Button.styled';
@@ -10,8 +10,8 @@ import { Form } from '../styles/gifts/form/Form.styled';
 const initValues = {
     name: '',
     quantity: '',
-    image: '',
-    person: '',
+    imageURL: '',
+    ToPerson: '',
     price: ''
 }
 
@@ -23,11 +23,13 @@ export const GiftForm = () => {
 
     const [formValues, setFormValues] = useState(initValues);
 
-    const { name, quantity, image, person, price } = formValues;
+    const { name, quantity, imageURL, toPerson, price } = formValues;
+    
+    // console.log(formValues);
 
-    useEffect(() => {
-        activeGift ? setFormValues(activeGift) : setFormValues(initValues);
-    }, [activeGift]);
+    // useEffect(() => {
+    //     activeGift ? setFormValues(activeGift) : setFormValues(initValues);
+    // }, [activeGift]);
 
     const handleInputChange = ({ target }) => {
         setFormValues({
@@ -40,13 +42,12 @@ export const GiftForm = () => {
         e.preventDefault();
 
         if(!activeGift){
-            let newGift = {
-                id: (+new Date()).toString(),
+            const newGift = {
                 name: name,
-                quantity: quantity, 
-                image: image,
-                person: person, 
                 price: price,
+                toPerson: toPerson,
+                quantity: quantity,
+                imageURL: imageURL,
                 total: quantity * price
             }
     
@@ -55,43 +56,44 @@ export const GiftForm = () => {
             if(duplicate){
                 console.log('Please do not repeat the gift. Show some more love');
             }else{
-                dispatch( addGift( newGift ) );
+                dispatch( startAddingNewGift(newGift) );
+                setFormValues(initValues);
+                dispatch( closeModal() );
             }
             
-            setFormValues(initValues);
-            dispatch( closeModal() );
-        }else{
-            if(option === 'edit'){
-                const giftToEdit = {
-                    id: activeGift.id,
-                    name: name,
-                    quantity: quantity, 
-                    image: image,
-                    person: person, 
-                    price: price,
-                    total: quantity * price
-                }
-                
-                dispatch( editGift( giftToEdit ) );
-                dispatch( deleteActiveGift() );
-                dispatch( closeModal() );
-            }else{
-                const giftToDuplicate = {
-                    id: (+new Date()).toString(),
-                    name: name,
-                    quantity: quantity, 
-                    image: image,
-                    person: person, 
-                    price: price,
-                    total: quantity * price
-                }
-
-
-                dispatch( duplicateGift( activeGift.id, giftToDuplicate ) );
-                dispatch( deleteActiveGift() );
-                dispatch( closeModal() );
-            }
         }
+        // }else{
+        //     if(option === 'edit'){
+        //         const giftToEdit = {
+        //             id: activeGift.id,
+        //             name: name,
+        //             quantity: quantity, 
+        //             image: image,
+        //             person: person, 
+        //             price: price,
+        //             total: quantity * price
+        //         }
+                
+        //         dispatch( editGift( giftToEdit ) );
+        //         dispatch( deleteActiveGift() );
+        //         dispatch( closeModal() );
+        //     }else{
+        //         const giftToDuplicate = {
+        //             id: (+new Date()).toString(),
+        //             name: name,
+        //             quantity: quantity, 
+        //             image: image,
+        //             person: person, 
+        //             price: price,
+        //             total: quantity * price
+        //         }
+
+
+        //         dispatch( duplicateGift( activeGift.id, giftToDuplicate ) );
+        //         dispatch( deleteActiveGift() );
+        //         dispatch( closeModal() );
+        //     }
+        // }
 
     }
 
@@ -103,7 +105,7 @@ export const GiftForm = () => {
         setFormValues({
             ...formValues, 
             name: randomGift.name,
-            image: randomGift.image,
+            imageURL: randomGift.image,
             quantity: randomGift.quantity,
             price: randomGift.price
         })
@@ -147,8 +149,8 @@ export const GiftForm = () => {
             <Input
                 type='text'
                 placeholder='Your image'
-                name='image'
-                value={image}
+                name='imageURL'
+                value={imageURL}
                 autoComplete='off'
                 required
                 onChange={handleInputChange}
@@ -157,8 +159,8 @@ export const GiftForm = () => {
             <Input
                 type='text'
                 placeholder='To:'
-                name='person'
-                value={person}
+                name='toPerson'
+                value={toPerson}
                 autoComplete='off'
                 required
                 onChange={handleInputChange}

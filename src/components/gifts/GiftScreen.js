@@ -36,7 +36,6 @@ export const GiftScreen = () => {
     const handleOpenModal = () => {
         dispatch( setType('form') );
         dispatch( openModal() );
-        dispatch( startNewGift() );
     }
 
     const handleVisualizeModal = () => {

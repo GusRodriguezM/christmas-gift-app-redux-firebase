@@ -54,7 +54,10 @@ export const giftsSlice = createSlice({
     setSavingGift: (state) => {
       state.isSaving = true;
     },
+    resetSavingGift: (state) => {
+      state.isSaving = false;
+    },
   },
 });
 
-export const { addGift, editGift, duplicateGift, deleteGift, cleanList, setActiveGift, deleteActiveGift, setSavingGift, setGifts } = giftsSlice.actions;
+export const { addGift, editGift, duplicateGift, deleteGift, cleanList, setActiveGift, deleteActiveGift, setSavingGift, setGifts, resetSavingGift } = giftsSlice.actions;
