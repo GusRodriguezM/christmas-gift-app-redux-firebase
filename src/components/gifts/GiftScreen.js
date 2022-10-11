@@ -20,7 +20,7 @@ import { Span } from '../styles/shared/Span.styled';
 
 export const GiftScreen = () => {
 
-    const { gifts } = useSelector( state => state.gifts );
+    const { gifts, isSaving } = useSelector( state => state.gifts );
     const { type } = useSelector(state => state.modal);
     const dispatch = useDispatch();
     const componentRef = useRef();
@@ -70,6 +70,8 @@ export const GiftScreen = () => {
 
             <GiftButton
                 onClick={handleOpenModal}
+                disabled={isSaving}
+                inactive={isSaving}
             >
                 Add Gift
             </GiftButton>

@@ -1,8 +1,11 @@
 import { collection, doc, setDoc } from 'firebase/firestore/lite';
 import { FirebaseDB } from '../../../firebase/config';
+import { addGift, setActiveGift, setSavingGift } from './';
 
 export const startNewGift = () => {
     return async(dispatch, getState) => {
+
+        dispatch( setSavingGift() );
         
         const { uid } = getState().auth;
 
@@ -15,7 +18,12 @@ export const startNewGift = () => {
         }
 
         const newDoc = doc( collection( FirebaseDB, `${uid}/list/gifts` ) );
-        const docResp = await setDoc( newDoc, newGift );
+        await setDoc( newDoc, newGift );
+
+        newGift.id = newDoc.id;
+
+        // dispatch( addGift(newGift) );
+        dispatch( setActiveGift(newGift) );
 
     }
 }

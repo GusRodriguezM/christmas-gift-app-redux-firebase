@@ -5,12 +5,13 @@ export const giftsSlice = createSlice({
   initialState: {
     gifts: [],
     activeGift: null, //id, name, price, to, quantity, imgURL
-    isSaving: true,
+    isSaving: false,
     messageSaved: ''
   },
   reducers: {
     addGift: (state, action) => {
       state.gifts.push( action.payload );
+      state.isSaving = false;
     },
     editGift: (state, action) => {
       const idx = state.gifts.findIndex(st => st.id === action.payload.id);
@@ -50,10 +51,10 @@ export const giftsSlice = createSlice({
     setGifts: (state, action) => {
 
     },
-    setSavingGift: (stae, action) => {
-
+    setSavingGift: (state) => {
+      state.isSaving = true;
     },
   },
 });
 
-export const { addGift, editGift, duplicateGift, deleteGift, cleanList, setActiveGift, deleteActiveGift } = giftsSlice.actions;
+export const { addGift, editGift, duplicateGift, deleteGift, cleanList, setActiveGift, deleteActiveGift, setSavingGift } = giftsSlice.actions;

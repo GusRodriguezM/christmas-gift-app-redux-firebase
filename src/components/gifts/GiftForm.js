@@ -109,12 +109,12 @@ export const GiftForm = () => {
         })
     }
 
-    const isFormValid = () => {
-        if(name.length === 0 && quantity.length === 0 && image.length === 0 && person.length === 0 && price.length === 0)
-            return true;
-        else
-            return false;
-    }
+    // const isFormValid = () => {
+    //     if(name.length === 0 && quantity.length === 0 && image.length === 0 && person.length === 0 && price.length === 0)
+    //         return true;
+    //     else
+    //         return false;
+    // }
 
     return (
         <Form onSubmit={handleSubmit}>
@@ -180,7 +180,7 @@ export const GiftForm = () => {
 
             <GiftButton
                 type='submit'
-                disabled={isFormValid()}
+                // disabled={isFormValid}
             >
                 Add a gift
             </GiftButton>
