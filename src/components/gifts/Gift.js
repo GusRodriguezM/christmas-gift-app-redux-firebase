@@ -10,7 +10,7 @@ import { Group } from '../styles/shared/Group.styled';
 import { Image } from '../styles/shared/Image.styled';
 import { Section } from '../styles/shared/Section.styled';
 
-export const Gift = ({ id, name, quantity, image, person, price }) => {
+export const Gift = ({ id, name, quantity, imageURL, toPerson, price, total }) => {
 
     const dispatch = useDispatch();
 
@@ -18,8 +18,8 @@ export const Gift = ({ id, name, quantity, image, person, price }) => {
         id: id,
         name: name,
         quantity: quantity,
-        image: image,
-        person: person,
+        imageURL: imageURL,
+        toPerson: toPerson,
         price: price
     }
 
@@ -43,12 +43,12 @@ export const Gift = ({ id, name, quantity, image, person, price }) => {
 
     return (
         <GiftContainer>
-            <Image alt={name} src={image} />
+            <Image alt={name} src={imageURL} />
 
             <Section>
                 <h3>{name}</h3>
-                <h3>{person}</h3>
-                <h3>({quantity}) - {quantity * price}</h3>
+                <h3>{toPerson}</h3>
+                <h3>({quantity}) - {total}</h3>
             </Section>
 
             <Group size='small'>
