@@ -49,7 +49,7 @@ export const giftsSlice = createSlice({
       state.activeGift = null;
     },
     setGifts: (state, action) => {
-
+      state.gifts = action.payload;
     },
     setSavingGift: (state) => {
       state.isSaving = true;
@@ -57,4 +57,4 @@ export const giftsSlice = createSlice({
   },
 });
 
-export const { addGift, editGift, duplicateGift, deleteGift, cleanList, setActiveGift, deleteActiveGift, setSavingGift } = giftsSlice.actions;
+export const { addGift, editGift, duplicateGift, deleteGift, cleanList, setActiveGift, deleteActiveGift, setSavingGift, setGifts } = giftsSlice.actions;
