@@ -20,7 +20,8 @@ export const Gift = ({ id, name, quantity, imageURL, toPerson, price, total }) =
         quantity: quantity,
         imageURL: imageURL,
         toPerson: toPerson,
-        price: price
+        price: price,
+        total: total
     }
 
     const handleEditGift = () => {

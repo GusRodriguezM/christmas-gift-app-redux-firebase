@@ -1,7 +1,7 @@
 import { collection, doc, setDoc } from 'firebase/firestore/lite';
 import { FirebaseDB } from '../../../firebase/config';
 import { loadGifts } from '../../../helpers';
-import { addGift, setActiveGift, setSavingGift, setGifts } from './';
+import { addGift, setSavingGift, setGifts, editGift } from './';
 
 export const startAddingNewGift = (newGift) => {
     return async(dispatch, getState) => {
@@ -32,14 +32,17 @@ export const startLoadingGifts = () => {
     }
 }
 
-export const startSavingGift = () => {
+export const startSavingGift = (giftToEdit) => {
     return async(dispatch, getState) => {
+        dispatch( setSavingGift() );
+
         const { uid } = getState().auth;
         const { activeGift } = getState().gifts;
 
-        const giftToDB = {...activeGift};
-        delete giftToDB.id;
+        const docRef = doc(FirebaseDB, `${uid}/list/gifts/${activeGift.id}`);
+        await setDoc(docRef, giftToEdit, { merge: true });
 
-        console.log(giftToDB);
+        giftToEdit.id = activeGift.id;
+        dispatch( editGift(giftToEdit) );
     }
 }

@@ -14,10 +14,10 @@ export const giftsSlice = createSlice({
       state.isSaving = false;
     },
     editGift: (state, action) => {
-      const idx = state.gifts.findIndex(st => st.id === action.payload.id);
-      if(idx >= 0){
-        state.gifts.splice(idx, 1, action.payload);
-      }
+      state.isSaving = false; 
+      state.gifts = state.gifts.map(gift => (
+        gift.id === action.payload.id ? action.payload : gift
+      ));
     },
     duplicateGift: {
       reducer: (state, action) => {

@@ -9,7 +9,7 @@ import { Modal } from '../modal/Modal';
 import { Visualize } from './Visualize';
 import { GiftListToPrint } from './GiftListToPrint';
 
-import { cleanList, startNewGift } from '../../store/slices/gifts';
+import { cleanList, setSavingGift } from '../../store/slices/gifts';
 import { openModal, setType } from '../../store/slices/modal';
 
 import Main from '../styles/gifts/screen/Main.styled';
@@ -36,6 +36,7 @@ export const GiftScreen = () => {
     const handleOpenModal = () => {
         dispatch( setType('form') );
         dispatch( openModal() );
+        dispatch( setSavingGift() );
     }
 
     const handleVisualizeModal = () => {
