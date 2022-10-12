@@ -33,11 +33,8 @@ export const giftsSlice = createSlice({
         }
       }
     },
-    deleteGift: (state, action) => {
-      const idx = state.gifts.findIndex(st => st.id === action.payload);
-      if(idx >= 0){
-        state.gifts.splice(idx, 1);
-      }
+    deleteGiftById: (state, action) => {
+      state.gifts = state.gifts.filter(gift => gift.id !== action.payload);
     },
     cleanList: (state) => {
       state.gifts = [];
@@ -60,4 +57,4 @@ export const giftsSlice = createSlice({
   },
 });
 
-export const { addGift, editGift, duplicateGift, deleteGift, cleanList, setActiveGift, deleteActiveGift, setSavingGift, setGifts, resetSavingGift } = giftsSlice.actions;
+export const { addGift, editGift, duplicateGift, deleteGiftById, cleanList, setActiveGift, deleteActiveGift, setSavingGift, setGifts, resetSavingGift } = giftsSlice.actions;

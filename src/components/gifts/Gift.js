@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { deleteGift, setActiveGift } from '../../store/slices/gifts';
+import { setActiveGift, startDeletingGift } from '../../store/slices/gifts';
 import { openModal, setOption, setType } from '../../store/slices/modal';
 
 import { GiftContainer } from '../styles/gifts/Gift.styled';
@@ -39,7 +39,7 @@ export const Gift = ({ id, name, quantity, imageURL, toPerson, price, total }) =
     }
 
     const handleDeleteGift = () => {
-        dispatch( deleteGift(id) );
+        dispatch( startDeletingGift(id) );
     }
 
     return (
