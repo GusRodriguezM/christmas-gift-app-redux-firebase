@@ -9,7 +9,7 @@ import { Modal } from '../modal/Modal';
 import { Visualize } from './Visualize';
 import { GiftListToPrint } from './GiftListToPrint';
 
-import { cleanList, setSavingGift } from '../../store/slices/gifts';
+import { setSavingGift, startDeletingGifts } from '../../store/slices/gifts';
 import { openModal, setType } from '../../store/slices/modal';
 
 import Main from '../styles/gifts/screen/Main.styled';
@@ -30,7 +30,7 @@ export const GiftScreen = () => {
     console.log(gifts);
 
     const handleCleanList = () => {
-        dispatch( cleanList() );
+        dispatch( startDeletingGifts() );
     }
 
     const handleOpenModal = () => {

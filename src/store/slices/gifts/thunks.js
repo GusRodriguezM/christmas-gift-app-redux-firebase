@@ -1,7 +1,7 @@
-import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore/lite';
+import { collection, deleteDoc, doc, setDoc, writeBatch } from 'firebase/firestore/lite';
 import { FirebaseDB } from '../../../firebase/config';
 import { loadGifts } from '../../../helpers';
-import { addGift, setSavingGift, setGifts, editGift, deleteGiftById } from './';
+import { addGift, setSavingGift, setGifts, editGift, deleteGiftById, cleanList } from './';
 
 export const startAddingNewGift = (newGift) => {
     return async(dispatch, getState) => {
@@ -57,5 +57,29 @@ export const startDeletingGift = (id) => {
 
         dispatch( deleteGiftById(id) );
         
+    }
+}
+
+export const startDeletingGifts = () => {
+    return async(dispatch, getState) => {
+        
+        //Getting the user id and the gifts array from the store
+        const { uid } = getState().auth;
+        const { gifts } = getState().gifts;
+
+        //We use batch writes. Basically this instruction allows to execute a set of different operations
+        const batch = writeBatch(FirebaseDB);
+
+        //Loop over the array of gifts to delete. We send the reference to the doc
+        gifts.forEach(gift => {
+            batch.delete( doc(FirebaseDB, `${uid}/list/gifts/${gift.id}`) );
+        });
+
+        //Finally, we commit the batch
+        await batch.commit();
+
+        //We clean the array in the store
+        dispatch( cleanList() );
+
     }
 }
