@@ -1,7 +1,7 @@
 import { collection, deleteDoc, doc, setDoc, writeBatch } from 'firebase/firestore/lite';
 import { FirebaseDB } from '../../../firebase/config';
 import { loadGifts } from '../../../helpers';
-import { addGift, setSavingGift, setGifts, editGift, deleteGiftById, cleanList } from './';
+import { addGift, setSavingGift, setGifts, editGift, deleteGiftById, cleanList, duplicateGift } from './';
 
 export const startAddingNewGift = (newGift) => {
     return async(dispatch, getState) => {
@@ -44,6 +44,21 @@ export const startSavingGift = (giftToEdit) => {
 
         giftToEdit.id = activeGift.id;
         dispatch( editGift(giftToEdit) );
+    }
+}
+
+export const startDuplicatingGift = (giftToDuplicate) => {
+    return async(dispatch, getState) => {
+
+        const { uid } = getState().auth;
+        const { activeGift } = getState().gifts;
+
+        const newDoc = doc( collection( FirebaseDB, `${uid}/list/gifts` ) );
+        await setDoc( newDoc, giftToDuplicate );
+
+        giftToDuplicate.id = newDoc.id;
+
+        dispatch( duplicateGift(activeGift.id, giftToDuplicate) );
     }
 }
 

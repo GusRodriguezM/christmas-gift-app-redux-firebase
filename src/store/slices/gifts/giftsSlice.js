@@ -34,6 +34,7 @@ export const giftsSlice = createSlice({
       }
     },
     deleteGiftById: (state, action) => {
+      state.isSaving = false;
       state.gifts = state.gifts.filter(gift => gift.id !== action.payload);
     },
     cleanList: (state) => {

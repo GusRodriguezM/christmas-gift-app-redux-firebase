@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteActiveGift, duplicateGift, startAddingNewGift, startSavingGift } from '../../store/slices/gifts';
+import { deleteActiveGift, duplicateGift, startAddingNewGift, startDuplicatingGift, startSavingGift } from '../../store/slices/gifts';
 import { closeModal } from '../../store/slices/modal';
 import { defaultGifts } from '../../helpers/defaultGifts';
 import { GiftButton } from '../styles/shared/Button.styled';
@@ -24,6 +24,8 @@ export const GiftForm = () => {
     const [formValues, setFormValues] = useState(initValues);
 
     const { name, quantity, imageURL, toPerson, price } = formValues;
+
+    const isDuplicating = useMemo(() => option === 'duplicate', [option]);
 
     useEffect(() => {
         activeGift ? setFormValues(activeGift) : setFormValues(initValues);
@@ -82,7 +84,6 @@ export const GiftForm = () => {
                 dispatch( closeModal() );
             }else{
                 const giftToDuplicate = {
-                    id: (+new Date()).toString(),
                     name: name,
                     quantity: quantity, 
                     imageURL: imageURL,
@@ -91,8 +92,7 @@ export const GiftForm = () => {
                     total: quantity * price
                 }
 
-
-                dispatch( duplicateGift( activeGift.id, giftToDuplicate ) );
+                dispatch( startDuplicatingGift( giftToDuplicate ) );
                 dispatch( deleteActiveGift() );
                 dispatch( closeModal() );
             }
@@ -124,6 +124,7 @@ export const GiftForm = () => {
                 autoComplete='off'
                 required
                 onChange={handleInputChange}
+                disabled={isDuplicating}
             />
 
             <GiftButton
@@ -150,6 +151,7 @@ export const GiftForm = () => {
                 autoComplete='off'
                 required
                 onChange={handleInputChange}
+                disabled={isDuplicating}
             />
 
             <Input
@@ -174,6 +176,7 @@ export const GiftForm = () => {
                 maxLength={7}
                 required
                 onChange={handleInputChange}
+                disabled={isDuplicating}
             />
 
             <GiftButton
