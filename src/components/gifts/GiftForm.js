@@ -1,11 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteActiveGift, duplicateGift, startAddingNewGift, startDuplicatingGift, startSavingGift } from '../../store/slices/gifts';
+import { deleteActiveGift, startAddingNewGift, startDuplicatingGift, startSavingGift } from '../../store/slices/gifts';
 import { closeModal } from '../../store/slices/modal';
 import { defaultGifts } from '../../helpers/defaultGifts';
 import { GiftButton } from '../styles/shared/Button.styled';
 import Input from '../styles/elements/Input.styled';
 import { Form } from '../styles/gifts/form/Form.styled';
+import { useRef } from 'react';
 
 const initValues = {
     name: '',
@@ -27,6 +28,8 @@ export const GiftForm = () => {
 
     const isDuplicating = useMemo(() => option === 'duplicate', [option]);
 
+    const fileInputRef = useRef();
+
     useEffect(() => {
         activeGift ? setFormValues(activeGift) : setFormValues(initValues);
     }, [activeGift]);     
@@ -43,6 +46,13 @@ export const GiftForm = () => {
             ...formValues,
             [target.name]: target.value
         });
+    }
+
+    const handleFileInputChange = ({ target }) => {
+        if(target.files.length === 0)
+            return;
+        console.log(target.files);
+        
     }
 
     const handleSubmit = (e) => {
@@ -153,6 +163,18 @@ export const GiftForm = () => {
                 onChange={handleInputChange}
                 disabled={isDuplicating}
             />
+
+            <input
+                type='file'
+                onChange={ handleFileInputChange }
+                style={{display: 'none'}}
+                ref={fileInputRef}
+            />
+
+            <i
+                className="fa-solid fa-cloud-arrow-up"
+                onClick={() => fileInputRef.current.click()}
+            ></i>
 
             <Input
                 type='text'
