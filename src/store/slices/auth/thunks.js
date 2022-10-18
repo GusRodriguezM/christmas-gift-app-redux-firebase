@@ -1,4 +1,5 @@
 import { loginWithEmailPassword, logoutFirebase, RegisterUserWithEmailPassword, signInWithGoogle } from "../../../firebase/providers";
+import { clearGiftsLogout } from "../gifts";
 import { setErrorMessage } from "../ui";
 import { checkingUserCredentials, login, logout } from "./"
 
@@ -63,7 +64,7 @@ export const startLogout = () => {
     return async(dispatch) => {
 
         await logoutFirebase();
-
+        dispatch( clearGiftsLogout() );
         dispatch( logout() );
 
     }

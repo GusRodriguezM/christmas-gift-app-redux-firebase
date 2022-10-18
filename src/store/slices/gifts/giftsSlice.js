@@ -55,7 +55,25 @@ export const giftsSlice = createSlice({
     resetSavingGift: (state) => {
       state.isSaving = false;
     },
+    clearGiftsLogout: (state) => {
+      state.isSaving = false;
+      state.messageSaved = '';
+      state.activeGift = null;
+      state.gifts = [];
+    }
   },
 });
 
-export const { addGift, editGift, duplicateGift, deleteGiftById, cleanList, setActiveGift, deleteActiveGift, setSavingGift, setGifts, resetSavingGift } = giftsSlice.actions;
+export const { 
+  addGift, 
+  cleanList, 
+  clearGiftsLogout,
+  deleteActiveGift, 
+  deleteGiftById, 
+  duplicateGift, 
+  editGift, 
+  resetSavingGift, 
+  setActiveGift, 
+  setGifts, 
+  setSavingGift, 
+} = giftsSlice.actions;
