@@ -1,7 +1,7 @@
 import { collection, deleteDoc, doc, setDoc, writeBatch } from 'firebase/firestore/lite';
 import { FirebaseDB } from '../../../firebase/config';
-import { loadGifts } from '../../../helpers';
-import { addGift, setSavingGift, setGifts, editGift, deleteGiftById, cleanList, duplicateGift } from './';
+import { fileUpload, loadGifts } from '../../../helpers';
+import { addGift, setSavingGift, setGifts, editGift, deleteGiftById, cleanList, duplicateGift, setImageURL } from './';
 
 export const startAddingNewGift = (newGift) => {
     return async(dispatch, getState) => {
@@ -50,8 +50,14 @@ export const startSavingGift = (giftToEdit) => {
 export const startDuplicatingGift = (giftToDuplicate) => {
     return async(dispatch, getState) => {
 
+        dispatch( setSavingGift() );
+
         const { uid } = getState().auth;
         const { activeGift } = getState().gifts;
+
+        giftToDuplicate.imageURL = activeGift.imageURL;
+        giftToDuplicate.name = activeGift.name;
+        giftToDuplicate.price = activeGift.price;
 
         const newDoc = doc( collection( FirebaseDB, `${uid}/list/gifts` ) );
         await setDoc( newDoc, giftToDuplicate );
@@ -95,6 +101,17 @@ export const startDeletingGifts = () => {
 
         //We clean the array in the store
         dispatch( cleanList() );
+
+    }
+}
+
+export const startUploadingFile = (files = []) => {
+    return async(dispatch) => {
+        dispatch( setSavingGift() );
+
+        const imageURL = await fileUpload( files[0] );
+
+        dispatch( setImageURL(imageURL) );
 
     }
 }

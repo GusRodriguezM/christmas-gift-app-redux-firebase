@@ -6,24 +6,29 @@ export const giftsSlice = createSlice({
     gifts: [],
     activeGift: null, //id, name, price, to, quantity, imgURL
     isSaving: false,
-    messageSaved: ''
+    messageSaved: '',
+    imageURL: ''
   },
   reducers: {
     addGift: (state, action) => {
       state.gifts.push( action.payload );
       state.isSaving = false;
+      state.imageURL = '';
     },
     editGift: (state, action) => {
       state.isSaving = false; 
       state.gifts = state.gifts.map(gift => (
         gift.id === action.payload.id ? action.payload : gift
       ));
+      state.imageURL = '';
     },
     duplicateGift: {
       reducer: (state, action) => {
         const { id, giftToDuplicate } = action.payload;
         const found = state.gifts.findIndex(gift => gift.id === id);
         state.gifts.splice(found + 1, 0, giftToDuplicate);
+        state.isSaving = false;
+        state.imageURL = '';
       },
       prepare: (id, giftToDuplicate) => {
         return {
@@ -60,6 +65,13 @@ export const giftsSlice = createSlice({
       state.messageSaved = '';
       state.activeGift = null;
       state.gifts = [];
+    },
+    setImageURL: (state, action) => {
+      state.imageURL = action.payload;
+      state.isSaving = false;
+    },
+    deleteImageURL: (state) => {
+      state.imageURL = '';
     }
   },
 });
@@ -70,10 +82,12 @@ export const {
   clearGiftsLogout,
   deleteActiveGift, 
   deleteGiftById, 
+  deleteImageURL,
   duplicateGift, 
   editGift, 
   resetSavingGift, 
   setActiveGift, 
-  setGifts, 
+  setGifts,
+  setImageURL,
   setSavingGift, 
 } = giftsSlice.actions;
