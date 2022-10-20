@@ -1,6 +1,6 @@
+import Toast from "../../../components/styles/Toast/Toast";
 import { loginWithEmailPassword, logoutFirebase, RegisterUserWithEmailPassword, signInWithGoogle } from "../../../firebase/providers";
 import { clearGiftsLogout } from "../gifts";
-import { setErrorMessage } from "../ui";
 import { checkingUserCredentials, login, logout } from "./"
 
 export const checkingAuthentication = (email, password) => {
@@ -16,11 +16,18 @@ export const startGoogleSignIn = () => {
         
         if(!result.ok){
             dispatch( logout( result.errorMessage ) );
-            dispatch( setErrorMessage(result.errorMessage) );
-            return false;
+            Toast.fire({
+                icon: 'error',
+                title: `${result.errorMessage}`
+            });
+        }else{
+            dispatch( login(result) );
+            Toast.fire({
+                icon: 'info',
+                title: `Welcome back, ${result.displayName}`
+            });
         }
 
-        dispatch( login(result) );
     }
 }
 
@@ -33,11 +40,18 @@ export const startCreatingUserWithEmailPassword = ({email, password, displayName
 
         if(!ok){
             dispatch( logout({errorMessage}) );
-            dispatch( setErrorMessage(errorMessage) );
-            return false;
+            Toast.fire({
+                icon: 'error',
+                title: `${errorMessage}`
+            });
+        }else{
+            dispatch( login({uid, displayName, email, photoURL}) );
+            Toast.fire({
+                icon: 'info',
+                title: `Welcome, ${displayName}`,
+                text: 'Start adding some gifts to your list!'
+            });
         }
-        
-        dispatch( login({uid, displayName, email, photoURL}) );
 
     }
 
@@ -52,11 +66,18 @@ export const startLoginWithEmailPassword = ({email, password}) => {
 
         if(!result.ok){
             dispatch( logout(result.errorMessage) );
-            dispatch( setErrorMessage(result.errorMessage) );
-            return false;
+            Toast.fire({
+                icon: 'error',
+                title: `${result.errorMessage}`,
+            })
+        }else{
+            dispatch( login(result) );
+            Toast.fire({
+                icon: 'info',
+                title: `Welcome back, ${result.displayName}`,
+            });
         }
 
-        dispatch( login(result) );
     }
 }
 
@@ -66,6 +87,11 @@ export const startLogout = () => {
         await logoutFirebase();
         dispatch( clearGiftsLogout() );
         dispatch( logout() );
+        Toast.fire({
+            icon: 'info',
+            title: `Goodbye!`,
+            text: 'Please, come back soon!'
+        });
 
     }
 }
