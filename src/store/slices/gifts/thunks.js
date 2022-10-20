@@ -2,6 +2,7 @@ import { collection, deleteDoc, doc, setDoc, writeBatch } from 'firebase/firesto
 import { FirebaseDB } from '../../../firebase/config';
 import { fileUpload, loadGifts } from '../../../helpers';
 import { addGift, setSavingGift, setGifts, editGift, deleteGiftById, cleanList, duplicateGift, setImageURL } from './';
+import Toast from '../../../components/styles/Toast/Toast';
 
 export const startAddingNewGift = (newGift) => {
     return async(dispatch, getState) => {
@@ -16,6 +17,11 @@ export const startAddingNewGift = (newGift) => {
         newGift.id = newDoc.id;
 
         dispatch( addGift(newGift) );
+
+        Toast.fire({
+            icon: 'success',
+            title: `A new gift has been added to your list`
+        });
 
     }
 }
@@ -44,6 +50,11 @@ export const startSavingGift = (giftToEdit) => {
 
         giftToEdit.id = activeGift.id;
         dispatch( editGift(giftToEdit) );
+
+        Toast.fire({
+            icon: 'success',
+            title: `Your gift has been edited successfully`
+        });
     }
 }
 
@@ -65,6 +76,11 @@ export const startDuplicatingGift = (giftToDuplicate) => {
         giftToDuplicate.id = newDoc.id;
 
         dispatch( duplicateGift(activeGift.id, giftToDuplicate) );
+
+        Toast.fire({
+            icon: 'success',
+            title: `Your gift has been duplicated successfully`
+        });
     }
 }
 
@@ -77,6 +93,11 @@ export const startDeletingGift = (id) => {
         await deleteDoc(docRef);
 
         dispatch( deleteGiftById(id) );
+
+        Toast.fire({
+            icon: 'success',
+            title: `The gift has been deleted successfully`
+        });
         
     }
 }
@@ -101,6 +122,11 @@ export const startDeletingGifts = () => {
 
         //We clean the array in the store
         dispatch( cleanList() );
+
+        Toast.fire({
+            icon: 'success',
+            title: `All the gifts has been deleted successfully`
+        });
 
     }
 }
