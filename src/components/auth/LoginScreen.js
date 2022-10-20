@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import validator from 'validator';
@@ -10,7 +10,7 @@ import { useForm } from '../../hooks';
 import { Button } from '../styles/shared/Button.styled';
 import Container from '../styles/auth/Container.styled';
 import Input from '../styles/elements/Input.styled';
-import { Span } from '../styles/shared/Span.styled';
+import Toast from '../styles/Toast/Toast';
 
 export const LoginScreen = () => {
 
@@ -27,12 +27,21 @@ export const LoginScreen = () => {
 
     const isAuthenticating = useMemo(() => status === 'checking', [status]);
 
+    useEffect(() => {
+        if(msgError.length > 0){
+            Toast.fire({
+                icon: 'error',
+                title: `${msgError}`
+            });
+        }
+    }, [msgError]);
+
     const isFormValid = () => {
         if(validator.isEmpty(email) && validator.isEmpty(password)){
-            dispatch( setErrorMessage('This fields are required') );
+            dispatch( setErrorMessage('Email and password are required') );
             return false;
         }else if(validator.isEmpty(email)){
-            dispatch( setErrorMessage('The name is required') );
+            dispatch( setErrorMessage('The email is required') );
             return false;
         }else if(!validator.isEmail(email)){
             dispatch( setErrorMessage('The email is not valid') );
@@ -62,15 +71,10 @@ export const LoginScreen = () => {
 
             <h1>Login</h1>
 
-            {
-                msgError && (
-                    <span>{msgError}</span>
-                )
-            }
-
             <Container.AuthForm onSubmit={handleLogin}>
 
                 <Input
+                    id='name'
                     type='text'
                     placeholder='Email'
                     name='email'

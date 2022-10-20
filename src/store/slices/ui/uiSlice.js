@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const uiSlice = createSlice({
     name: 'modal',
     initialState: {
-        msgError: null
+        msgError: ''
     },
     reducers: {
         setErrorMessage: (state, {payload}) => {

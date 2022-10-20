@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import validator from 'validator';
@@ -11,7 +11,7 @@ import { useForm } from '../../hooks';
 import Container from '../styles/auth/Container.styled';
 import Input from '../styles/elements/Input.styled';
 import { Button } from '../styles/shared/Button.styled';
-import { Span } from '../styles/shared/Span.styled';
+import Toast from '../styles/Toast/Toast';
 
 export const RegisterScreen = () => {
 
@@ -30,9 +30,19 @@ export const RegisterScreen = () => {
 
     const isAuthenticating = useMemo(() => status === 'checking', [status]);
 
+    useEffect(() => {
+        if(msgError.length > 0){
+            Toast.fire({
+                icon: 'error',
+                title: `${msgError}`
+            });
+        }
+    }, [msgError]);
+    
+
     const isFormValid = () => {
         if(validator.isEmpty(name) && validator.isEmpty(email) && validator.isEmpty(password) && validator.isEmpty(password2)){
-            dispatch( setErrorMessage('This fields are required') );
+            dispatch( setErrorMessage('Please fill all the required fields') );
             return false;
         }else if(validator.isEmpty(name)){
             dispatch( setErrorMessage('The name is required') );
@@ -68,12 +78,6 @@ export const RegisterScreen = () => {
         <Container>
 
             <h1>Sign in</h1>
-
-            {
-                msgError && (
-                    <span>{msgError}</span>
-                )
-            }
 
             <Container.AuthForm onSubmit={handleRegister}>
 
