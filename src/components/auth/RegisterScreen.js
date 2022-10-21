@@ -1,40 +1,77 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import React, { useMemo, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import validator from 'validator';
 
-import { login } from '../../store/slices/auth/authSlice';
-import { useForm } from '../hooks/useForm';
+import { removeErrorMessage, setErrorMessage } from '../../store/slices/ui';
+import { startCreatingUserWithEmailPassword } from '../../store/slices/auth';
+
+import { useForm } from '../../hooks';
+
 import Container from '../styles/auth/Container.styled';
 import Input from '../styles/elements/Input.styled';
 import { Button } from '../styles/shared/Button.styled';
-import { Span } from '../styles/shared/Span.styled';
+import Toast from '../styles/Toast/Toast';
 
 export const RegisterScreen = () => {
 
+    const { msgError } = useSelector( state => state.ui );
+    const { status } = useSelector( state => state.auth );
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const [formValues, handleInputChange] = useForm({
         name: '',
         email: '',
-        password: ''
+        password: '',
+        password2: ''
     });
 
-    const { name, email, password } = formValues;
+    const { name, email, password, password2 } = formValues;
 
-    const handleLogin = (e) => {
-        e.preventDefault();
-        
-        dispatch( login(email) );
-        navigate('/', {
-            replace: true
-        });
+    const isAuthenticating = useMemo(() => status === 'checking', [status]);
+
+    useEffect(() => {
+        if(msgError.length > 0){
+            Toast.fire({
+                icon: 'error',
+                title: `${msgError}`
+            });
+        }
+    }, [msgError]);
+    
+
+    const isFormValid = () => {
+        if(validator.isEmpty(name) && validator.isEmpty(email) && validator.isEmpty(password) && validator.isEmpty(password2)){
+            dispatch( setErrorMessage('Please fill all the required fields') );
+            return false;
+        }else if(validator.isEmpty(name)){
+            dispatch( setErrorMessage('The name is required') );
+            return false;
+        }else if(validator.isEmpty(email)){
+            dispatch( setErrorMessage('The email is required') );
+            return false;
+        }else if(!validator.isEmail(email)){
+            dispatch( setErrorMessage('The email is not valid') );
+            return false;
+        }else if(password.length !== 6 && password2.length !== 6){
+            dispatch( setErrorMessage('The password should be at least 6 characters') );
+            return false;
+        }else if(password !== password2){
+            dispatch( setErrorMessage('The passwords should match') );
+            return false;
+        }
+
+        dispatch( removeErrorMessage() );
+        return true;
     }
 
-    const handleNavigate = () => {
-        navigate('/auth/login', {
-            replace: true
-        });
+    const handleRegister = (e) => {
+        e.preventDefault();
+
+        if(isFormValid()){
+            dispatch( startCreatingUserWithEmailPassword({email, password, displayName: name}) );
+        }
+        
     }
 
     return (
@@ -42,7 +79,7 @@ export const RegisterScreen = () => {
 
             <h1>Sign in</h1>
 
-            <Container.AuthForm onSubmit={handleLogin}>
+            <Container.AuthForm onSubmit={handleRegister}>
 
                 <Input
                     type='text'
@@ -71,19 +108,31 @@ export const RegisterScreen = () => {
                     onChange={handleInputChange}
                 />
 
-                <Button type='submit'>
-                    <span>Login</span>
+                <Input 
+                    type='password'
+                    placeholder='Password'
+                    name='password2'
+                    autoComplete='off'
+                    value={password2}
+                    onChange={handleInputChange}
+                />
+
+                <Button 
+                    type='submit'
+                    disabled={isAuthenticating}
+                    inactive={isAuthenticating}
+                >
+                    Register
                 </Button>
 
             </Container.AuthForm>
 
-            <Span>I already have an account</Span>
-
-            <Button
-                onClick={handleNavigate}
+            <Link
+                aria-disabled={isAuthenticating}
+                to='/auth/login'
             >
-                Login
-            </Button>
+                Go to Login
+            </Link>
             
         </Container>
     )

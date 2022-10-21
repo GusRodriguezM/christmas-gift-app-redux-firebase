@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addGift, deleteActiveGift, duplicateGift, editGift } from '../../store/slices/gifts';
+import { deleteActiveGift, startAddingNewGift, startDuplicatingGift, startSavingGift, startUploadingFile } from '../../store/slices/gifts';
 import { closeModal } from '../../store/slices/modal';
 import { defaultGifts } from '../../helpers/defaultGifts';
 import { GiftButton } from '../styles/shared/Button.styled';
@@ -10,24 +10,35 @@ import { Form } from '../styles/gifts/form/Form.styled';
 const initValues = {
     name: '',
     quantity: '',
-    image: '',
-    person: '',
+    imageURL: '',
+    toPerson: '',
     price: ''
 }
 
 export const GiftForm = () => {
 
-    const { gifts, activeGift } = useSelector( state => state.gifts );
+    const { gifts, activeGift, imageURL } = useSelector( state => state.gifts );
     const { option } = useSelector( state => state.modal );
     const dispatch = useDispatch();
 
     const [formValues, setFormValues] = useState(initValues);
 
-    const { name, quantity, image, person, price } = formValues;
+    const { name, quantity, toPerson, price } = formValues;
+
+    const isDuplicating = useMemo(() => option === 'duplicate', [option]);
+
+    const fileInputRef = useRef();
 
     useEffect(() => {
         activeGift ? setFormValues(activeGift) : setFormValues(initValues);
-    }, [activeGift]);
+    }, [activeGift]);     
+
+    const isFormValid = () => {
+        if(name.length === 0 && quantity.length === 0 && imageURL.length === 0 && toPerson.length === 0 && price.length === 0)
+            return false;
+        else
+            return true;
+    }
 
     const handleInputChange = ({ target }) => {
         setFormValues({
@@ -36,58 +47,58 @@ export const GiftForm = () => {
         });
     }
 
+    const handleFileInputChange = ({ target }) => {
+        if(target.files.length === 0)
+            return;
+        
+        dispatch( startUploadingFile(target.files) );
+        
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
         if(!activeGift){
-            let newGift = {
-                id: (+new Date()).toString(),
+            const newGift = {
                 name: name,
-                quantity: quantity, 
-                image: image,
-                person: person, 
                 price: price,
+                toPerson: toPerson,
+                quantity: quantity,
+                imageURL: imageURL,
                 total: quantity * price
             }
-    
+
             const duplicate = gifts.some(gift => gift.name.toLowerCase() === newGift.name.toLowerCase());
     
             if(duplicate){
                 console.log('Please do not repeat the gift. Show some more love');
             }else{
-                dispatch( addGift( newGift ) );
+                if(isFormValid())
+                    dispatch( startAddingNewGift(newGift) );
+                    setFormValues(initValues);
+                    dispatch( closeModal() );
             }
             
-            setFormValues(initValues);
-            dispatch( closeModal() );
         }else{
             if(option === 'edit'){
                 const giftToEdit = {
-                    id: activeGift.id,
                     name: name,
                     quantity: quantity, 
-                    image: image,
-                    person: person, 
+                    imageURL: imageURL === '' ? activeGift.imageURL : imageURL,
+                    toPerson: toPerson, 
                     price: price,
                     total: quantity * price
                 }
-                
-                dispatch( editGift( giftToEdit ) );
+                dispatch( startSavingGift(giftToEdit) );
                 dispatch( deleteActiveGift() );
                 dispatch( closeModal() );
             }else{
                 const giftToDuplicate = {
-                    id: (+new Date()).toString(),
-                    name: name,
                     quantity: quantity, 
-                    image: image,
-                    person: person, 
-                    price: price,
+                    toPerson: toPerson, 
                     total: quantity * price
                 }
-
-
-                dispatch( duplicateGift( activeGift.id, giftToDuplicate ) );
+                dispatch( startDuplicatingGift( giftToDuplicate ) );
                 dispatch( deleteActiveGift() );
                 dispatch( closeModal() );
             }
@@ -103,17 +114,10 @@ export const GiftForm = () => {
         setFormValues({
             ...formValues, 
             name: randomGift.name,
-            image: randomGift.image,
+            imageURL: randomGift.image,
             quantity: randomGift.quantity,
             price: randomGift.price
         })
-    }
-
-    const isFormValid = () => {
-        if(name.length === 0 && quantity.length === 0 && image.length === 0 && person.length === 0 && price.length === 0)
-            return true;
-        else
-            return false;
     }
 
     return (
@@ -126,6 +130,7 @@ export const GiftForm = () => {
                 autoComplete='off'
                 required
                 onChange={handleInputChange}
+                disabled={isDuplicating}
             />
 
             <GiftButton
@@ -144,21 +149,24 @@ export const GiftForm = () => {
                 onChange={handleInputChange}
             />
 
-            <Input
-                type='text'
-                placeholder='Your image'
-                name='image'
-                value={image}
-                autoComplete='off'
-                required
-                onChange={handleInputChange}
+            <input
+                type='file'
+                onChange={ handleFileInputChange }
+                style={{display: 'none'}}
+                ref={fileInputRef}
+                disabled={isDuplicating}
             />
+
+            <i
+                className="fa-solid fa-cloud-arrow-up"
+                onClick={() => fileInputRef.current.click()}
+            ></i>
 
             <Input
                 type='text'
                 placeholder='To:'
-                name='person'
-                value={person}
+                name='toPerson'
+                value={toPerson}
                 autoComplete='off'
                 required
                 onChange={handleInputChange}
@@ -176,11 +184,11 @@ export const GiftForm = () => {
                 maxLength={7}
                 required
                 onChange={handleInputChange}
+                disabled={isDuplicating}
             />
 
             <GiftButton
                 type='submit'
-                disabled={isFormValid()}
             >
                 Add a gift
             </GiftButton>

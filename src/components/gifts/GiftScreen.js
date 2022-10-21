@@ -9,7 +9,7 @@ import { Modal } from '../modal/Modal';
 import { Visualize } from './Visualize';
 import { GiftListToPrint } from './GiftListToPrint';
 
-import { cleanList } from '../../store/slices/gifts';
+import { setSavingGift, startDeletingGifts } from '../../store/slices/gifts';
 import { openModal, setType } from '../../store/slices/modal';
 
 import Main from '../styles/gifts/screen/Main.styled';
@@ -20,7 +20,7 @@ import { Span } from '../styles/shared/Span.styled';
 
 export const GiftScreen = () => {
 
-    const { gifts } = useSelector( state => state.gifts );
+    const { gifts, isSaving } = useSelector( state => state.gifts );
     const { type } = useSelector(state => state.modal);
     const dispatch = useDispatch();
     const componentRef = useRef();
@@ -30,12 +30,13 @@ export const GiftScreen = () => {
     console.log(gifts);
 
     const handleCleanList = () => {
-        dispatch( cleanList() );
+        dispatch( startDeletingGifts() );
     }
 
     const handleOpenModal = () => {
         dispatch( setType('form') );
         dispatch( openModal() );
+        dispatch( setSavingGift() );
     }
 
     const handleVisualizeModal = () => {
@@ -69,6 +70,8 @@ export const GiftScreen = () => {
 
             <GiftButton
                 onClick={handleOpenModal}
+                disabled={isSaving}
+                inactive={isSaving}
             >
                 Add Gift
             </GiftButton>

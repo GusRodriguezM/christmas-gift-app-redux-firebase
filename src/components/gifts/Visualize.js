@@ -13,11 +13,11 @@ export const Visualize = () => {
         <Container>
             {
                 gifts.map(gift => (
-                    <VisualizeGift>
-                        <Image alt={gift.name} src={gift.image} />
+                    <VisualizeGift key={gift.id}>
+                        <Image alt={gift.name} src={gift.imageURL} />
                         <Section>
                             <h4>{gift.name} - ({gift.quantity})</h4>
-                            <h4>To: {gift.person}</h4>
+                            <h4>To: {gift.toPerson}</h4>
                         </Section>
                     </VisualizeGift>
                 ))

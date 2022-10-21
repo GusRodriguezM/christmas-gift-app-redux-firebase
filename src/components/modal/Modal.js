@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteActiveGift } from '../../store/slices/gifts';
+import { deleteActiveGift, deleteImageURL, resetSavingGift } from '../../store/slices/gifts';
 import { closeModal } from '../../store/slices/modal/modalSlice';
 import { ContentBody, HeaderFooter, ModalContainer, ModalContent } from '../styles/modal/ModalContainer.styled';
 import { GiftButton } from '../styles/shared/Button.styled';
@@ -13,6 +13,8 @@ export const Modal = ({title, children}) => {
     const handleCloseModal = () => {
         dispatch( closeModal() );
         dispatch( deleteActiveGift() );
+        dispatch( deleteImageURL() );
+        dispatch( resetSavingGift() );
     }
 
     if(!open){
