@@ -1,7 +1,7 @@
 import { collection, deleteDoc, doc, setDoc, writeBatch } from 'firebase/firestore/lite';
 import { FirebaseDB } from '../../../firebase/config';
 import { fileUpload, loadGifts } from '../../../helpers';
-import { addGift, setSavingGift, setGifts, editGift, deleteGiftById, cleanList, duplicateGift, setImageURL } from './';
+import { addGift, setSavingGift, setGifts, editGift, deleteGiftById, cleanList, duplicateGift, setImageContent } from './';
 import Toast from '../../../components/styles/Toast/Toast';
 
 export const startAddingNewGift = (newGift) => {
@@ -135,9 +135,9 @@ export const startUploadingFile = (files = []) => {
     return async(dispatch) => {
         dispatch( setSavingGift() );
 
-        const imageURL = await fileUpload( files[0] );
+        const image = await fileUpload( files[0] );
 
-        dispatch( setImageURL(imageURL) );
+        dispatch( setImageContent(image) );
 
     }
 }

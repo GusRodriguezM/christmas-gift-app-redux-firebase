@@ -22,7 +22,12 @@ const GlobalStyles = createGlobalStyle`
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: cover;
-        height: 100vh;
+        height: 100%;
+        width: 100%;
+
+        @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobileLargeLimit}) {
+            width: 117%;
+        }
     }
 
     h1, h2, h3, h4 {
