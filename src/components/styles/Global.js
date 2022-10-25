@@ -37,6 +37,26 @@ const GlobalStyles = createGlobalStyle`
         margin-bottom: 0;
     }
 
+    h1 {
+        //(28px, 16px + 2vw, 40px) / 16px
+        font-size: clamp(1.75rem, 1rem + 2vw, 2.5rem);
+    }
+
+    h2 {
+        //(22px, 14px + 2vw, 36px) / 16px
+        font-size: clamp(1.375rem, 0.875rem + 1.5vw, 2.25rem);
+    }
+
+    h3 {
+        //(16px, 12px + 2vw, 32px) / 16px
+        font-size: clamp(1rem, 0.75rem + 1vw, 2rem);
+    }
+
+    h4, span {
+        //(10px, 10px + 2vw, 28px) / 16px
+        font-size: clamp(0.625rem, 0.625rem + 0.5vw, 1.75rem);
+    }
+
     p {
         margin-top: 0;
     }
