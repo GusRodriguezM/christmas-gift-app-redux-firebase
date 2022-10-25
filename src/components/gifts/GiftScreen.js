@@ -64,16 +64,15 @@ export const GiftScreen = () => {
     return (
         <Main>
 
-            <Span>
-                <h1>Gifts:</h1>
-            </Span>
+            <h1>Gifts:</h1>
 
             <GiftButton
                 onClick={handleOpenModal}
                 disabled={isSaving}
                 inactive={isSaving}
             >
-                Add Gift
+                <span>Add Gift</span>
+                <i className="fa-solid fa-circle-plus"></i>
             </GiftButton>
 
             <Modal title={type === 'form' ? 'Form' : 'Visualize'}>
@@ -105,19 +104,22 @@ export const GiftScreen = () => {
                 <GiftButton
                     onClick={handleVisualizeModal}
                 >
-                    Visualize    
+                    <span>Visualize</span>
+                    <i className="fa-solid fa-eye"></i>
                 </GiftButton>
 
                 <GiftButton
                     onClick={handlePrint}
                 >
-                    Print
+                    <span>Print</span>
+                    <i className="fa-solid fa-print"></i>
                 </GiftButton>  
 
                 <GiftButton
                     onClick={handleCleanList}
                 >
-                    Delete All
+                    <span>Delete All</span>
+                    <i className="fa-solid fa-dumpster"></i>
                 </GiftButton>
             </Group>
         </Main>

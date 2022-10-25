@@ -56,19 +56,22 @@ export const Gift = ({ id, name, quantity, imageURL, toPerson, price, total }) =
                 <GiftButton
                     onClick={handleEditGift}
                 >
-                    Edit
+                    <span>Edit</span>
+                    <i className='fa-solid fa-pen-to-square'></i>
                 </GiftButton>
 
                 <GiftButton
                     onClick={handleDuplicateGift}
                 >
-                    Duplicate
+                    <span>Duplicate</span>
+                    <i className="fa-solid fa-copy"></i>
                 </GiftButton>
 
                 <GiftButton
                     onClick={handleDeleteGift}
                 >
-                    Delete
+                    <span>Delete</span>
+                    <i className="fa-solid fa-trash"></i>
                 </GiftButton>
             </Group>
         </GiftContainer>

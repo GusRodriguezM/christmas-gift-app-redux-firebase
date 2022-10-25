@@ -12,6 +12,18 @@ export const Button = styled.button`
     width: 100px;
     //Conditional color: if inactive is true the button would be gray else will be blue
     background-color: ${({inactive}) => inactive ? css`${({ theme }) => theme.colors.disabledButton}` : css`${({ theme }) => theme.colors.loginButton}`};
+
+    @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobileLarge}) {
+        span {
+            display: none;
+        }
+    }
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.mobileLargePlus1}) and (max-width: ${({ theme }) => theme.breakpoints.xlarge}){
+        i {
+            display: none;
+        }
+    }
 `;
 
 export const GiftButton = styled(Button)`

@@ -122,7 +122,8 @@ export const RegisterScreen = () => {
                     disabled={isAuthenticating}
                     inactive={isAuthenticating}
                 >
-                    Register
+                    <span>Register</span>
+                    <i className="fa-solid fa-user-plus"></i>
                 </Button>
 
             </Container.AuthForm>

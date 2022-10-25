@@ -37,7 +37,8 @@ export const Navbar = () => {
                             <Button
                                 onClick={handleLogout}
                             >
-                                Logout
+                                <span>Logout</span>
+                                <i className="fa-solid fa-right-from-bracket"></i>
                             </Button>
                         </NavInfo>
                     )

@@ -137,7 +137,8 @@ export const GiftForm = () => {
             <GiftButton
                 onClick={handleGetRandomGift}
             >
-                Surprise
+                <span>Surprise</span>
+                <i className="fa-solid fa-shuffle"></i>
             </GiftButton>
 
             <Input
@@ -195,7 +196,8 @@ export const GiftForm = () => {
             <GiftButton
                 type='submit'
             >
-                Add a gift
+                <span>Add a gift</span>
+                <i className="fa-solid fa-circle-plus"></i>
             </GiftButton>
 
         </Form>
