@@ -21,12 +21,17 @@ export const BrandName = styled(Link)`
     text-decoration: none;
 `;
 
-export const NavContent = styled.div`
-    margin-right: 1rem;
-`;
-
 export const NavInfo = styled.div`
-    width: 350px;
+    width: 30%;
+    margin-right: 0.5rem;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.mobileMedium}) and (max-width: ${({ theme }) => theme.breakpoints.medium}) {
+        width: 50%;
+    }
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.mediumPlus1}) and (max-width: ${({ theme }) => theme.breakpoints.large}) {
+        width: 40%;
+    }
 `;
