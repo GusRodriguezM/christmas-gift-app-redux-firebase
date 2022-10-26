@@ -151,8 +151,9 @@ export const GiftForm = () => {
                 onChange={handleInputChange}
             />
 
-            <input
+            <Input
                 type='file'
+                accept='image/*'
                 onChange={ handleFileInputChange }
                 style={{display: 'none'}}
                 ref={fileInputRef}

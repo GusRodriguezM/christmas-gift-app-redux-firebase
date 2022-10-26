@@ -14,7 +14,7 @@ import { openModal, setType } from '../../store/slices/modal';
 
 import Main from '../styles/gifts/screen/Main.styled';
 import { GiftButton } from '../styles/shared/Button.styled';
-import { Group } from '../styles/shared/Group.styled';
+import { MainButtonGroup } from '../styles/shared/Group.styled';
 import { Print } from '../styles/gifts/list/List.styled';
 import { Span } from '../styles/shared/Span.styled';
 
@@ -100,7 +100,7 @@ export const GiftScreen = () => {
                 <h1>Total: {total}</h1>
             </Span>
 
-            <Group size='large'>
+            <MainButtonGroup>
                 <GiftButton
                     onClick={handleVisualizeModal}
                 >
@@ -121,7 +121,7 @@ export const GiftScreen = () => {
                     <span>Delete All</span>
                     <i className="fa-solid fa-dumpster"></i>
                 </GiftButton>
-            </Group>
+            </MainButtonGroup>
         </Main>
     )
 }

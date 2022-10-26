@@ -6,7 +6,7 @@ import { openModal, setOption, setType } from '../../store/slices/modal';
 
 import { GiftContainer } from '../styles/gifts/Gift.styled';
 import { GiftButton } from '../styles/shared/Button.styled';
-import { Group } from '../styles/shared/Group.styled';
+import { GiftButtonGroup } from '../styles/shared/Group.styled';
 import { Image } from '../styles/shared/Image.styled';
 import { Section } from '../styles/shared/Section.styled';
 
@@ -52,7 +52,7 @@ export const Gift = ({ id, name, quantity, imageURL, toPerson, price, total }) =
                 <h3>({quantity}) - {total}</h3>
             </Section>
 
-            <Group size='small'>
+            <GiftButtonGroup>
                 <GiftButton
                     onClick={handleEditGift}
                 >
@@ -73,7 +73,7 @@ export const Gift = ({ id, name, quantity, imageURL, toPerson, price, total }) =
                     <span>Delete</span>
                     <i className="fa-solid fa-trash"></i>
                 </GiftButton>
-            </Group>
+            </GiftButtonGroup>
         </GiftContainer>
     )
 }
