@@ -24,6 +24,14 @@ export const Button = styled.button`
             display: none;
         }
     }
+
+    @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobileMedium}) {
+        width: 50px;
+    }
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.mobileMediumPlus1}) and (max-width: ${({ theme }) => theme.breakpoints.large}){
+        width: 80px;
+    }
 `;
 
 export const GiftButton = styled(Button)`

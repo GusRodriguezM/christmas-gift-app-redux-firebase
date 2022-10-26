@@ -26,6 +26,10 @@ const GlobalStyles = createGlobalStyle`
         width: 100%;
 
         @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobileLargeLimit}) {
+            width: 122.5%;
+        }
+        
+        @media screen and (min-width: 435px) and (max-width: 459px){
             width: 117%;
         }
     }
