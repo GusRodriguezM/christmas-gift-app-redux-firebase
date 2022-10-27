@@ -16,6 +16,18 @@ export const ModalContent = styled.div`
     width:  40%;
     height: 90%;
     background-color: ${({ theme }) => theme.colors.list};
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.mobileMedium}) and (max-width: ${({ theme }) => theme.breakpoints.mobileLarge}) {
+        width: 70%;
+    }
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.mobileLargePlus1}) and (max-width: ${({ theme }) => theme.breakpoints.medium}) {
+        width: 60%;
+    }
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.mediumPlus1}) and (max-width: ${({ theme }) => theme.breakpoints.large}) {
+        width: 50%;
+    }
 `;
 
 export const HeaderFooter = styled.div`

@@ -160,7 +160,7 @@ export const GiftForm = () => {
                 disabled={isDuplicating}
             />
 
-            <label>Upload your image:</label>
+            <h3>Upload your image:</h3>
 
             <i
                 className="fa-solid fa-cloud-arrow-up"
