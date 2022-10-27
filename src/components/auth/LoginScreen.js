@@ -106,7 +106,7 @@ export const LoginScreen = () => {
                     disabled={isAuthenticating}
                     inactive={isAuthenticating}
                 >
-                    <span>Google Login</span>
+                    <span>Sign in with Google</span>
                     <i className="fa-brands fa-google"></i>
                 </Button>
 

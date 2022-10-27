@@ -10,7 +10,7 @@ export const uiSlice = createSlice({
             state.msgError = payload;
         },
         removeErrorMessage: (state) => {
-            state.msgError = null;
+            state.msgError = '';
         },
     },
 });

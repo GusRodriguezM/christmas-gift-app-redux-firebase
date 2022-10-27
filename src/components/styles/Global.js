@@ -46,12 +46,12 @@ const GlobalStyles = createGlobalStyle`
         font-size: clamp(1.75rem, 1rem + 2vw, 2.5rem);
     }
 
-    h2, a {
+    h2 {
         //(22px, 14px + 2vw, 36px) / 16px
         font-size: clamp(1.375rem, 0.875rem + 1.5vw, 2.25rem);
     }
 
-    h3 {
+    h3, a {
         //(16px, 12px + 2vw, 32px) / 16px
         font-size: clamp(1rem, 0.75rem + 1vw, 2rem);
     }
