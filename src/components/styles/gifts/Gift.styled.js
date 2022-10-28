@@ -9,5 +9,6 @@ export const GiftContainer = styled.div`
 `;
 
 export const VisualizeGift = styled(GiftContainer)`
-    justify-content: space-evenly;
+    justify-content: space-between;
+    padding-right: 0.5rem;
 `;

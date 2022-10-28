@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteActiveGift, startAddingNewGift, startDuplicatingGift, startSavingGift, startUploadingFile } from '../../store/slices/gifts';
+import { deleteActiveGift, startAddingNewGift, startDuplicatingGift, startSavingGift, startUploadingFile, deleteImageContent } from '../../store/slices/gifts';
 import { closeModal } from '../../store/slices/modal';
 import { defaultGifts } from '../../helpers/defaultGifts';
 import { GiftButton } from '../styles/shared/Button.styled';
@@ -10,14 +10,13 @@ import { Form } from '../styles/gifts/form/Form.styled';
 const initValues = {
     name: '',
     quantity: '',
-    imageURL: '',
     toPerson: '',
     price: ''
 }
 
 export const GiftForm = () => {
 
-    const { gifts, activeGift, imageURL } = useSelector( state => state.gifts );
+    const { gifts, activeGift, imageContent } = useSelector( state => state.gifts );
     const { option } = useSelector( state => state.modal );
     const dispatch = useDispatch();
 
@@ -34,7 +33,7 @@ export const GiftForm = () => {
     }, [activeGift]);     
 
     const isFormValid = () => {
-        if(name.length === 0 && quantity.length === 0 && imageURL.length === 0 && toPerson.length === 0 && price.length === 0)
+        if(name.length === 0 && quantity.length === 0 && imageContent.imageURL.length === 0 && toPerson.length === 0 && price.length === 0)
             return false;
         else
             return true;
@@ -64,7 +63,7 @@ export const GiftForm = () => {
                 price: price,
                 toPerson: toPerson,
                 quantity: quantity,
-                imageURL: imageURL,
+                imageURL: imageContent.imageURL,
                 total: quantity * price
             }
 
@@ -76,6 +75,7 @@ export const GiftForm = () => {
                 if(isFormValid())
                     dispatch( startAddingNewGift(newGift) );
                     setFormValues(initValues);
+                    dispatch( deleteImageContent() );
                     dispatch( closeModal() );
             }
             
@@ -84,13 +84,14 @@ export const GiftForm = () => {
                 const giftToEdit = {
                     name: name,
                     quantity: quantity, 
-                    imageURL: imageURL === '' ? activeGift.imageURL : imageURL,
+                    imageURL: imageContent.imageURL === '' ? activeGift.imageURL : imageContent.imageURL,
                     toPerson: toPerson, 
                     price: price,
                     total: quantity * price
                 }
                 dispatch( startSavingGift(giftToEdit) );
                 dispatch( deleteActiveGift() );
+                dispatch( deleteImageContent() );
                 dispatch( closeModal() );
             }else{
                 const giftToDuplicate = {
@@ -136,7 +137,8 @@ export const GiftForm = () => {
             <GiftButton
                 onClick={handleGetRandomGift}
             >
-                Surprise
+                <span>Surprise</span>
+                <i className="fa-solid fa-shuffle"></i>
             </GiftButton>
 
             <Input
@@ -149,18 +151,23 @@ export const GiftForm = () => {
                 onChange={handleInputChange}
             />
 
-            <input
+            <Input
                 type='file'
+                accept='image/*'
                 onChange={ handleFileInputChange }
                 style={{display: 'none'}}
                 ref={fileInputRef}
                 disabled={isDuplicating}
             />
 
+            <h3>Upload your image:</h3>
+
             <i
                 className="fa-solid fa-cloud-arrow-up"
                 onClick={() => fileInputRef.current.click()}
             ></i>
+
+            <span>{imageContent.name}</span>
 
             <Input
                 type='text'
@@ -190,7 +197,8 @@ export const GiftForm = () => {
             <GiftButton
                 type='submit'
             >
-                Add a gift
+                <span>Add a gift</span>
+                <i className="fa-solid fa-circle-plus"></i>
             </GiftButton>
 
         </Form>

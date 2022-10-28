@@ -13,6 +13,10 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     margin-top: 60px;
+
+    @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobileMedium}) {
+        width: 400px;
+    }
 `;
 
 Container.AuthForm = AuthForm;

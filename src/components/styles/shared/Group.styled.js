@@ -1,7 +1,18 @@
 import styled from 'styled-components';
 
-export const Group = styled.div`
+export const MainButtonGroup = styled.div`
+    width: 80%;
     display: flex;
     justify-content: space-between;
-    width: ${({size}) => size === 'large' ? '85%' : '40%'};
+`;
+
+export const GiftButtonGroup = styled(MainButtonGroup)`
+    width: 40%;
+
+    @media screen and (max-width: ${({ theme }) => theme.breakpoints.medium}) {
+        width: 30%;
+        flex-direction: column;
+        align-items: center;
+    }
+
 `;

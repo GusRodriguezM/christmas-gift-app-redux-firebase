@@ -8,6 +8,14 @@ const Main = styled.main`
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.mobileMedium}) and (max-width: ${({ theme }) => theme.breakpoints.mobileLargeLimit}) {
+        height: 490px;
+    }
+
+    @media screen and (min-width: 435px) and (max-width: 459px) {
+        height: 470px;
+    }
 `;
 
 export default Main;

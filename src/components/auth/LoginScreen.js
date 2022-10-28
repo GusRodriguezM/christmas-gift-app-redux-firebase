@@ -97,7 +97,8 @@ export const LoginScreen = () => {
                     disabled={isAuthenticating}
                     inactive={isAuthenticating}
                 >
-                    Login
+                    <span>Login</span>
+                    <i className="fa-solid fa-user-lock"></i>
                 </Button>
 
                 <Button 
@@ -105,7 +106,8 @@ export const LoginScreen = () => {
                     disabled={isAuthenticating}
                     inactive={isAuthenticating}
                 >
-                    Google Login
+                    <span>Sign in with Google</span>
+                    <i className="fa-brands fa-google"></i>
                 </Button>
 
             </Container.AuthForm>

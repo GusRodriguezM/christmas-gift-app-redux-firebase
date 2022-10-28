@@ -7,7 +7,10 @@ export const giftsSlice = createSlice({
     activeGift: null, //id, name, price, to, quantity, imgURL
     isSaving: false,
     messageSaved: '',
-    imageURL: ''
+    imageContent: {
+      name: '',
+      imageURL: ''
+    }
   },
   reducers: {
     addGift: (state, action) => {
@@ -66,12 +69,14 @@ export const giftsSlice = createSlice({
       state.activeGift = null;
       state.gifts = [];
     },
-    setImageURL: (state, action) => {
-      state.imageURL = action.payload;
+    setImageContent: (state, action) => {
+      state.imageContent.name = action.payload.fileName +'.'+ action.payload.format;
+      state.imageContent.imageURL = action.payload.secureURL;
       state.isSaving = false;
     },
-    deleteImageURL: (state) => {
-      state.imageURL = '';
+    deleteImageContent: (state) => {
+      state.imageContent.name = '';
+      state.imageContent.imageURL = '';
     }
   },
 });
@@ -82,12 +87,12 @@ export const {
   clearGiftsLogout,
   deleteActiveGift, 
   deleteGiftById, 
-  deleteImageURL,
+  deleteImageContent,
   duplicateGift, 
   editGift, 
   resetSavingGift, 
   setActiveGift, 
   setGifts,
-  setImageURL,
+  setImageContent,
   setSavingGift, 
 } = giftsSlice.actions;
