@@ -27,8 +27,6 @@ export const GiftScreen = () => {
 
     const [total, setTotal] = useState(0);
 
-    console.log(gifts);
-
     const handleCleanList = () => {
         dispatch( startDeletingGifts() );
     }

@@ -3,7 +3,6 @@ export const apiGifts = {
     getGifts: () => new Promise((resolve, reject) => {
         try {
             const list = JSON.parse(localStorage.getItem('gifts'));
-            console.log(list);
 
             setTimeout((
                 () => resolve({

@@ -16,14 +16,14 @@ export const giftsSlice = createSlice({
     addGift: (state, action) => {
       state.gifts.push( action.payload );
       state.isSaving = false;
-      state.imageURL = '';
+      state.imageContent.imageURL = '';
     },
     editGift: (state, action) => {
       state.isSaving = false; 
       state.gifts = state.gifts.map(gift => (
         gift.id === action.payload.id ? action.payload : gift
       ));
-      state.imageURL = '';
+      state.imageContent.imageURL = '';
     },
     duplicateGift: {
       reducer: (state, action) => {
@@ -31,7 +31,7 @@ export const giftsSlice = createSlice({
         const found = state.gifts.findIndex(gift => gift.id === id);
         state.gifts.splice(found + 1, 0, giftToDuplicate);
         state.isSaving = false;
-        state.imageURL = '';
+        state.imageContent.imageURL = '';
       },
       prepare: (id, giftToDuplicate) => {
         return {

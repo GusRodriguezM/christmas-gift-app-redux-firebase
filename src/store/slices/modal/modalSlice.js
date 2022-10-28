@@ -13,6 +13,8 @@ export const modalSlice = createSlice({
     },
     closeModal: (state) => {
         state.open = false;
+        state.option = '';
+        state.type = '';
     },
     setOption: (state, action) => {
       state.option = action.payload;
@@ -23,4 +25,9 @@ export const modalSlice = createSlice({
   },
 });
 
-export const { openModal, closeModal, setOption, setType } = modalSlice.actions;
+export const { 
+  closeModal, 
+  openModal,
+  setOption, 
+  setType, 
+} = modalSlice.actions;

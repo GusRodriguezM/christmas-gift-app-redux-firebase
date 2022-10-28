@@ -6,6 +6,7 @@ import { defaultGifts } from '../../helpers/defaultGifts';
 import { GiftButton } from '../styles/shared/Button.styled';
 import Input from '../styles/elements/Input.styled';
 import { Form } from '../styles/gifts/form/Form.styled';
+import Toast from '../styles/Toast/Toast';
 
 const initValues = {
     name: '',
@@ -70,7 +71,10 @@ export const GiftForm = () => {
             const duplicate = gifts.some(gift => gift.name.toLowerCase() === newGift.name.toLowerCase());
     
             if(duplicate){
-                console.log('Please do not repeat the gift. Show some more love');
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Please do not repeat the gift. Show some more love'
+                });
             }else{
                 if(isFormValid())
                     dispatch( startAddingNewGift(newGift) );

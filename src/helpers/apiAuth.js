@@ -3,7 +3,6 @@ export const apiAuth = {
     getUSer: () => new Promise((resolve, reject) => {
         try {
             const user = JSON.parse(localStorage.getItem('user'));
-            console.log(user);
 
             setTimeout((
                 () => resolve({
