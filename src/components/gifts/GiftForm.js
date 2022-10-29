@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteActiveGift, startAddingNewGift, startDuplicatingGift, startSavingGift, startUploadingFile, deleteImageContent } from '../../store/slices/gifts';
 import { closeModal } from '../../store/slices/modal';
-import { defaultGifts } from '../../helpers/defaultGifts';
+import { defaultGifts } from '../../helpers';
 import { GiftButton } from '../styles/shared/Button.styled';
 import Input from '../styles/elements/Input.styled';
 import { Form } from '../styles/gifts/form/Form.styled';
