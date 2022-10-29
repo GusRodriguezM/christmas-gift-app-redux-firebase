@@ -14,7 +14,7 @@ export const Visualize = () => {
             {
                 gifts.map(gift => (
                     <VisualizeGift key={gift.id}>
-                        <Image alt={gift.name} src={gift.imageURL} />
+                        <Image alt={gift.name} src={gift.imageURL} loading='lazy' />
                         <SectionPrint>
                             <h4>Gift: {gift.name}</h4>
                             <h4>Quantity: {gift.quantity}</h4>

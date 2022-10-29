@@ -44,7 +44,7 @@ export const Gift = ({ id, name, quantity, imageURL, toPerson, price, total }) =
 
     return (
         <GiftContainer>
-            <Image alt={name} src={imageURL} />
+            <Image alt={name} src={imageURL} loading='lazy' />
 
             <Section>
                 <h3>{name}</h3>
