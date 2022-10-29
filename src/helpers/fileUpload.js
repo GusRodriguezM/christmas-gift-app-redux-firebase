@@ -1,6 +1,7 @@
 export const fileUpload = async(file) => {
-    if(!file)
-        throw new Error('There is no image to upload');
+    // if(!file)
+    //     throw new Error('There is no image to upload');
+    if(!file) return null;
 
     const cloudUrl = 'https://api.cloudinary.com/v1_1/gusrom/upload';
 
@@ -28,7 +29,8 @@ export const fileUpload = async(file) => {
         
     } catch (error) {
         console.log(error);
-        throw new Error(error);
+        // throw new Error(error);
+        return null;
     }
 
 }
