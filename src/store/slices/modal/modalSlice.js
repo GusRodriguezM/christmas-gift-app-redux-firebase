@@ -4,23 +4,19 @@ export const modalSlice = createSlice({
   name: 'modal',
   initialState: {
     open: false,
-    option: '',
-    type: ''
+    option: '', //options: edit, duplicate
+    type: '' //options: form, visualize
   },
   reducers: {
-    openModal: (state) => {
+    openModal: (state, action) => {
         state.open = true;
+        state.option = action.payload.option;
+        state.type = action.payload.type;
     },
     closeModal: (state) => {
         state.open = false;
         state.option = '';
         state.type = '';
-    },
-    setOption: (state, action) => {
-      state.option = action.payload;
-    },
-    setType: (state, action) => {
-      state.type = action.payload;
     }
   },
 });
@@ -28,6 +24,4 @@ export const modalSlice = createSlice({
 export const { 
   closeModal, 
   openModal,
-  setOption, 
-  setType, 
 } = modalSlice.actions;

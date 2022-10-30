@@ -10,7 +10,7 @@ import { Visualize } from './Visualize';
 import { GiftListToPrint } from './GiftListToPrint';
 
 import { setSavingGift, startDeletingGifts } from '../../store/slices/gifts';
-import { openModal, setType } from '../../store/slices/modal';
+import { openModal } from '../../store/slices/modal';
 
 import Main from '../styles/gifts/screen/Main.styled';
 import { GiftButton } from '../styles/shared/Button.styled';
@@ -32,14 +32,12 @@ export const GiftScreen = () => {
     }
 
     const handleOpenModal = () => {
-        dispatch( setType('form') );
-        dispatch( openModal() );
+        dispatch( openModal({type: 'form', option: ''}) );
         dispatch( setSavingGift() );
     }
 
     const handleVisualizeModal = () => {
-        dispatch( setType('visualize') );
-        dispatch( openModal() );
+        dispatch( openModal({type: 'visualize', option: ''}) );
     }
 
     const handlePrint = useReactToPrint({

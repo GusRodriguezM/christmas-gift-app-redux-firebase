@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import { setActiveGift, startDeletingGift } from '../../store/slices/gifts';
-import { openModal, setOption, setType } from '../../store/slices/modal';
+import { openModal } from '../../store/slices/modal';
 
 import { GiftContainer } from '../styles/gifts/Gift.styled';
 import { GiftButton } from '../styles/shared/Button.styled';
@@ -26,16 +26,12 @@ export const Gift = ({ id, name, quantity, imageURL, toPerson, price, total }) =
 
     const handleEditGift = () => {
         dispatch( setActiveGift( gift ) );
-        dispatch( setType('form') );
-        dispatch( setOption('edit') );
-        dispatch( openModal() );
+        dispatch( openModal({type: 'form', option: 'edit'}) );
     }
 
     const handleDuplicateGift = () => {
         dispatch( setActiveGift( gift ) );
-        dispatch( setType('form') );
-        dispatch( setOption('duplicate') );
-        dispatch( openModal() );
+        dispatch( openModal({type: 'form', option: 'duplicate'}) );
     }
 
     const handleDeleteGift = () => {
