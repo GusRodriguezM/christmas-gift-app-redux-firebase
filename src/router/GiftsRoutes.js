@@ -11,7 +11,7 @@ export const GiftsRoutes = () => {
             <Routes>
                 <Route path="gifts" element={<GiftScreen />} />
 
-                <Route path="/" element={<Navigate to="/gifts"/> } />
+                <Route path="/*" element={<Navigate to="/gifts"/> } />
             </Routes>
         </>
     )
