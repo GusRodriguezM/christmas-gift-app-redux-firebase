@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const uiSlice = createSlice({
-    name: 'modal',
+    name: 'ui',
     initialState: {
         msgError: ''
     },
