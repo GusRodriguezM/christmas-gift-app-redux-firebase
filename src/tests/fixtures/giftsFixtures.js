@@ -1,3 +1,4 @@
+//Initial state for the gifts slice
 export const initialState = {
     gifts: [],
     activeGift: null, //id, name, price, to, quantity, imgURL
@@ -9,6 +10,10 @@ export const initialState = {
     }
 }
 
+/**
+ * A state when an image is added to the form 
+ * E.g. This is made when a gift is going to be added or edited
+ */
 export const initialStateWithImageContent = {
     gifts: [],
     activeGift: null, //id, name, price, to, quantity, imgURL
@@ -20,6 +25,7 @@ export const initialStateWithImageContent = {
     }
 }
 
+//The isSaving property indicates that the process of manipulating a gift is being made
 export const isSavingInitialState = {
     gifts: [],
     activeGift: null, //id, name, price, to, quantity, imgURL
@@ -31,6 +37,7 @@ export const isSavingInitialState = {
     }
 }
 
+//The state when a gift has been added to the list
 export const addGiftState = {
     gifts: [
         {
@@ -52,6 +59,7 @@ export const addGiftState = {
     }
 }
 
+//The state when a gift has been edited 
 export const editGiftState = {
     gifts: [
         {
@@ -73,6 +81,7 @@ export const editGiftState = {
     }
 }
 
+//This state have two gifst because the second is a duplicate of the first
 export const duplicateGiftState = {
     gifts: [
         {
@@ -103,6 +112,10 @@ export const duplicateGiftState = {
     }
 }
 
+/**
+ * This example shows a list with one gift and an active gift in the state.
+ * Meaning the gift will be edited or duplicated
+ */
 export const addGiftStateWithActiveGift = {
     gifts: [
         {
@@ -132,6 +145,7 @@ export const addGiftStateWithActiveGift = {
     }
 }
 
+//A simple example of the structure of a gift
 export const gift = {
     id: '4dsFL1c0gXHe6u44tcRn',
     name:'Xbox Series S pro scorpio',
@@ -142,6 +156,7 @@ export const gift = {
     total: 420
 }
 
+//A simple example of an edited gift (the base is the gift above)
 export const giftToEdit = {
     id: '4dsFL1c0gXHe6u44tcRn',
     name:'Xbox Series X',
@@ -152,6 +167,7 @@ export const giftToEdit = {
     total: 1040
 }
 
+//An example of a dulicated gift
 export const giftToDuplicate = {
     id: '9ctI204Z6B0sUfFcYTYP',
     name:'Xbox Series S pro scorpio',
@@ -162,6 +178,7 @@ export const giftToDuplicate = {
     total: 420
 }
 
+//A list of gifts used to load the array when an user logs in 
 export const gifts = [
     {
         id: '4dsFL1c0gXHe6u44tcRn',
@@ -183,6 +200,7 @@ export const gifts = [
     }
 ]
 
+//The strucutre of the response from cloudinary when an image is uploaded
 export const imageCloudinary = {
     fileName: 'vocho',
     format: 'jpg',
