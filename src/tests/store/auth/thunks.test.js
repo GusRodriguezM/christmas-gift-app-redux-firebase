@@ -1,12 +1,12 @@
-import { signInWithGoogle } from "../../../firebase/providers";
-import { checkingAuthentication, checkingUserCredentials, login, logout, startGoogleSignIn } from "../../../store/slices/auth";
+import { loginWithEmailPassword, logoutFirebase, RegisterUserWithEmailPassword, signInWithGoogle } from "../../../firebase/providers";
+import { checkingAuthentication, startCreatingUserWithEmailPassword, startGoogleSignIn, startLoginWithEmailPassword, startLogout } from "../../../store/slices/auth/thunks";
+import { checkingUserCredentials, login, logout } from "../../../store/slices/auth/authSlice";
 import { demoUser } from "../../fixtures/authFixtures";
+import { clearGiftsLogout } from "../../../store/slices/gifts";
 import Toast from "../../../components/styles/Toast/Toast";
 
 //Mocking the functions from the providers file (firebase functions for the authentication)
-jest.mock('../../../firebase/providers', () => ({
-    signInWithGoogle: jest.fn(),
-}));
+jest.mock('../../../firebase/providers');
 
 //Mocking the sweetalert component
 jest.mock('../../../components/styles/Toast/Toast', () => ({
@@ -82,6 +82,99 @@ describe('Tests in the auth thunk file', () => {
             icon: 'error',
             title: loginData.errorMessage
         });
+
+    });
+
+    test('startCreatingUserWithEmailPassword should call checkingUserCredentials register an user and do the login', async() => {
+
+        const loginData = { ok: true, ...demoUser };
+        
+        await RegisterUserWithEmailPassword.mockResolvedValue( loginData );
+        
+        const formData = { email: demoUser.email, password: '123456', displayName: demoUser.displayName };
+        
+        await startCreatingUserWithEmailPassword( formData )( dispatch );
+
+        expect( dispatch ).toHaveBeenCalledWith( checkingUserCredentials() );
+        expect( dispatch ).toHaveBeenCalledWith( login( demoUser ) );
+        expect( Toast.fire ).toHaveBeenCalledWith({
+            icon: "info",
+            text: "Start adding some gifts to your list!",
+            title: `Welcome, ${demoUser.displayName}`
+        });
+
+
+    });
+
+    test('startCreatingUserWithEmailPassword should call checkingUserCredentials, fail creating an user and do the logout', async() => {
+
+        const loginData = { ok: false, errorMessage: 'Error creating the user' };
+        
+        await RegisterUserWithEmailPassword.mockResolvedValue( loginData );
+
+        const formData = { email: demoUser.email, password: '123456', displayName: demoUser.displayName };
+        
+        await startCreatingUserWithEmailPassword( formData )( dispatch );
+
+        expect( dispatch ).toHaveBeenCalledWith( checkingUserCredentials() );
+        expect( dispatch ).toHaveBeenCalledWith( logout( {errorMessage: loginData.errorMessage} ) );
+        expect( Toast.fire ).toHaveBeenCalledWith({ 
+            icon: 'error',
+            title: loginData.errorMessage
+        });
+
+    });
+
+    test('startLoginWithEmailPassword should call checkingUserCredentials and do the login', async() => {
+
+        const loginData = { ok: true, ...demoUser };
+
+        await loginWithEmailPassword.mockResolvedValue( loginData );
+
+        const formData = { email: demoUser.email, password: '123456' };
+
+        await startLoginWithEmailPassword( formData )( dispatch );
+
+        expect( dispatch ).toHaveBeenCalledWith( checkingUserCredentials() );
+        expect( dispatch ).toHaveBeenCalledWith( login( loginData ) );
+        expect( Toast.fire ).toHaveBeenCalledWith({ 
+            icon: 'info',
+            title: `Welcome back, ${loginData.displayName}`
+        });
+
+    });
+
+    test('startLoginWithEmailPassword should call checkingUserCredentials and do the logout', async() => {
+
+        const loginData = { ok: false, errorMessage: 'Something went wrong!' };
+
+        await loginWithEmailPassword.mockResolvedValue( loginData );
+
+        const formData = { email: demoUser.email, password: '123456' };
+
+        await startLoginWithEmailPassword( formData )( dispatch );
+
+        expect( dispatch ).toHaveBeenCalledWith( checkingUserCredentials() );
+        expect( dispatch ).toHaveBeenCalledWith( logout( loginData.errorMessage ) );
+        expect( Toast.fire ).toHaveBeenCalledWith({ 
+            icon: 'error',
+            title: loginData.errorMessage
+        });
+
+    });
+
+    test('startLogout should call logoutFirebase, clearGiftsLogout and logout', async() => {
+
+        await startLogout()( dispatch );
+
+        expect( logoutFirebase ).toHaveBeenCalled();
+        expect( dispatch ).toHaveBeenCalledWith( clearGiftsLogout() );
+        expect( dispatch ).toHaveBeenCalledWith( logout() );
+        expect( Toast.fire ).toHaveBeenCalledWith({
+            icon: 'info',
+            title: 'Goodbye!',
+            text: 'Please, come back soon!'
+        })
 
     });
 
