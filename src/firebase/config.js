@@ -7,12 +7,12 @@ import { getFirestore } from 'firebase/firestore/lite';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyD0oQ-VGPqsvVbO96jZvLBQD_sEg2OKIO4",
-  authDomain: "todo-app-8a284.firebaseapp.com",
-  projectId: "todo-app-8a284",
-  storageBucket: "todo-app-8a284.appspot.com",
-  messagingSenderId: "1090843493927",
-  appId: "1:1090843493927:web:c7632a314888046e11b002"
+  apiKey: process.env.REACT_APP_APIKEY,
+  authDomain: process.env.REACT_APP_AUTHDOMAIN,
+  projectId: process.env.REACT_APP_PROJECTID,
+  storageBucket: process.env.REACT_APP_STORAGEBUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
+  appId: process.env.REACT_APP_APPID
 };
 
 // Initialize Firebase
