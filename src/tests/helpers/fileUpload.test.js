@@ -41,8 +41,8 @@ describe('Tests in the fileUpload file', () => {
          *  deleted: { 'ChristmasApp/hpqsfuqwkj28yuibzqwc': 'deleted' },
          *  ...
          * }
+         * console.log(cloudinaryResp);
          */
-        console.log(cloudinaryResp);
 
     });
 
