@@ -53,7 +53,7 @@ export const RegisterScreen = () => {
         }else if(!validator.isEmail(email)){
             dispatch( setErrorMessage('The email is not valid') );
             return false;
-        }else if(password.length !== 6 && password2.length !== 6){
+        }else if(password.length < 6 && password2.length < 6){
             dispatch( setErrorMessage('The password should be at least 6 characters') );
             return false;
         }else if(password !== password2){
@@ -79,7 +79,9 @@ export const RegisterScreen = () => {
 
             <h1>Sign in</h1>
 
-            <Container.AuthForm onSubmit={handleRegister}>
+            <Container.AuthForm 
+                onSubmit={handleRegister}
+                aria-label='register-form'>
 
                 <Input
                     type='text'
