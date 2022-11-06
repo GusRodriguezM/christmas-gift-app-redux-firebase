@@ -28,13 +28,14 @@ export const LoginScreen = () => {
     const isAuthenticating = useMemo(() => status === 'checking', [status]);
 
     useEffect(() => {
-        if(msgError.length > 0){
+        if(msgError !== ""){
             Toast.fire({
                 icon: 'error',
                 title: `${msgError}`
             });
+            dispatch( removeErrorMessage() );
         }
-    }, [msgError]);
+    }, [msgError, dispatch]);
 
     const isFormValid = () => {
         if(validator.isEmpty(email) && validator.isEmpty(password)){
@@ -71,10 +72,11 @@ export const LoginScreen = () => {
 
             <h1>Login</h1>
 
-            <Container.AuthForm onSubmit={handleLogin}>
+            <Container.AuthForm
+                onSubmit={handleLogin}
+                aria-label='login-form' >
 
                 <Input
-                    id='name'
                     type='text'
                     placeholder='Email'
                     name='email'
@@ -105,6 +107,7 @@ export const LoginScreen = () => {
                     onClick={handleGoogleSignIn}
                     disabled={isAuthenticating}
                     inactive={isAuthenticating}
+                    aria-label='googleBtn'
                 >
                     <span>Sign in with Google</span>
                     <i className="fa-brands fa-google"></i>

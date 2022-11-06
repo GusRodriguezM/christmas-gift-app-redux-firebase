@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "cloudinary": "^1.32.0",
+    "jest-styled-components": "^7.1.1",
     "setimmediate": "^1.0.5"
   }
 }
