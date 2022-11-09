@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests in the <AuthRoutes /> Should render the component correctly 1`] = `
+<div>
+  <div
+    class="sc-hKMtZM bGngom"
+  >
+    <h1>
+      Login
+    </h1>
+    <form
+      aria-label="login-form"
+      class="sc-dkzDqf bnSFoi"
+    >
+      <input
+        autocomplete="off"
+        class="sc-eCYdqJ drExBT"
+        name="email"
+        placeholder="Email"
+        type="text"
+        value=""
+      />
+      <input
+        autocomplete="off"
+        class="sc-eCYdqJ drExBT"
+        name="password"
+        placeholder="Password"
+        type="password"
+        value=""
+      />
+      <button
+        class="sc-bczRLJ glPbkZ"
+        type="submit"
+      >
+        <span>
+          Login
+        </span>
+        <i
+          class="fa-solid fa-user-lock"
+        />
+      </button>
+      <button
+        aria-label="googleBtn"
+        class="sc-bczRLJ glPbkZ"
+      >
+        <span>
+          Sign in with Google
+        </span>
+        <i
+          class="fa-brands fa-google"
+        />
+      </button>
+    </form>
+    <a
+      aria-disabled="false"
+      href="/auth/register"
+    >
+      Create a new account
+    </a>
+  </div>
+</div>
+`;
