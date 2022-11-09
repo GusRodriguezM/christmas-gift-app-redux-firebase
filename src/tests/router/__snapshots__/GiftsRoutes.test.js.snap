@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests in the <GiftsRoutes /> Should render the component correctly and match with the snapshot 1`] = `
+<div>
+  <nav
+    class="sc-dmRaPn igMnyy"
+  >
+    <a
+      class="sc-kgflAQ jdpQcI"
+      href="/"
+    >
+      Christmas Gift App
+    </a>
+    <div
+      class="sc-fLlhyt bTbnoI"
+    >
+      <span
+        class="sc-hHLeRK ikEMyq"
+      >
+        <i
+          class="fa-solid fa-user-astronaut"
+        />
+        : Jon Doe
+      </span>
+      <button
+        class="sc-bczRLJ glPbkZ"
+      >
+        <span>
+          Logout
+        </span>
+        <i
+          class="fa-solid fa-right-from-bracket"
+        />
+      </button>
+    </div>
+  </nav>
+  <main
+    class="sc-dIouRR fRVzPB"
+  >
+    <h1>
+      Gifts:
+    </h1>
+    <button
+      class="sc-bczRLJ sc-gsnTZi glPbkZ hbpwPw"
+    >
+      <span>
+        Add Gift
+      </span>
+      <i
+        class="fa-solid fa-circle-plus"
+      />
+    </button>
+    <div
+      class="sc-crXcEl cMhrjf"
+    >
+      <div
+        class="sc-fEOsli jmjICg"
+      >
+        <div
+          class="sc-idiyUo gSzZLM"
+        >
+          <h1>
+            Total: $
+            0
+          </h1>
+        </div>
+      </div>
+    </div>
+    <div
+      class="sc-kDDrLX sc-iqcoie jBGpND cLiSAZ"
+    >
+      There is no gifts in your list. Please start adding some!
+    </div>
+    <span
+      class="sc-hHLeRK ikEMyq"
+    >
+      <h1>
+        Total: 
+        0
+      </h1>
+    </span>
+    <div
+      class="sc-gKXOVf VFXNc"
+    >
+      <button
+        class="sc-bczRLJ sc-gsnTZi glPbkZ hbpwPw"
+      >
+        <span>
+          Visualize
+        </span>
+        <i
+          class="fa-solid fa-eye"
+        />
+      </button>
+      <button
+        class="sc-bczRLJ sc-gsnTZi glPbkZ hbpwPw"
+      >
+        <span>
+          Print
+        </span>
+        <i
+          class="fa-solid fa-print"
+        />
+      </button>
+      <button
+        class="sc-bczRLJ sc-gsnTZi glPbkZ hbpwPw"
+      >
+        <span>
+          Delete All
+        </span>
+        <i
+          class="fa-solid fa-dumpster"
+        />
+      </button>
+    </div>
+  </main>
+</div>
+`;
