@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests in the <Navbar /> Should render the component correctly and match with the snapshot 1`] = `
+<div>
+  <nav
+    class="sc-bczRLJ gslatN"
+  >
+    <a
+      class="sc-gsnTZi dYciIz"
+      href="/"
+    >
+      Christmas Gift App
+    </a>
+    <div
+      class="sc-dkzDqf jhiqnR"
+    >
+      <span
+        class="sc-jSMfEi iRIMqE"
+      >
+        <i
+          class="fa-solid fa-user-astronaut"
+        />
+        : Jon Doe
+      </span>
+      <button
+        class="sc-hKMtZM gatnXf"
+      >
+        <span>
+          Logout
+        </span>
+        <i
+          class="fa-solid fa-right-from-bracket"
+        />
+      </button>
+    </div>
+  </nav>
+</div>
+`;
