@@ -22,7 +22,7 @@ export const useCheckAuth = () => {
             dispatch( startLoadingGifts() );
         })
 
-    }, []); 
+    }, [dispatch]); 
     
     return status;
 
