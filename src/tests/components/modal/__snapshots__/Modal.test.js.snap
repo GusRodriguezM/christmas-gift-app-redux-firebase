@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests in the <Modal /> component Should not render the component if open is equal to false 1`] = `<div />`;
+
+exports[`Tests in the <Modal /> component Should render the component if open is equal to true 1`] = `
+<div>
+  <div
+    class="sc-bczRLJ eFUSeP"
+  >
+    <div
+      class="sc-gsnTZi geZUCt"
+    >
+      <div
+        class="sc-dkzDqf hkPnie"
+      >
+        <h3>
+          Testing
+        </h3>
+      </div>
+      <div
+        class="sc-hKMtZM bcpxhA"
+      >
+        <h1>
+          Content in the modal
+        </h1>
+      </div>
+      <div
+        class="sc-dkzDqf hkPnie"
+      >
+        <button
+          class="sc-eCYdqJ sc-jSMfEi sEdKe hmovcX"
+        >
+          <span>
+            Close
+          </span>
+          <i
+            class="fa-solid fa-circle-xmark"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
